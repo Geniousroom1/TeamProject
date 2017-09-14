@@ -14,15 +14,17 @@ public class ResultActivity extends AppCompatActivity {
 
 
     // 멤버 변수 선언
-    private ImageView mainImage;
+    private ImageView mainImage,changeImage;
     private ImageButton btn1, btn2, btn3;
     private boolean turn;
+    private boolean change1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
         mainImage = (ImageView) findViewById(R.id.mainImage);
+        changeImage = (ImageView)findViewById(R.id.changeImage);
         btn1 = (ImageButton) findViewById(R.id.imageButton);
         btn2 = (ImageButton) findViewById(R.id.imageButton2);
         btn3 = (ImageButton) findViewById(R.id.imageButton3);
@@ -30,6 +32,8 @@ public class ResultActivity extends AppCompatActivity {
         btn2.setVisibility(View.INVISIBLE);
         btn3.setVisibility(View.INVISIBLE);
         turn = true;
+        changeImage.setVisibility(View.INVISIBLE);
+        change1 = true;
 
         mainImage.setImageBitmap(SecondActivity.bit);
 //        imageView.setBackground(new ShapeDrawable(new OvalShape())); //뒤에 검은 배경화면
@@ -58,6 +62,7 @@ public class ResultActivity extends AppCompatActivity {
 
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+                //계속 실행됨
 
             }
         });
@@ -75,6 +80,15 @@ public class ResultActivity extends AppCompatActivity {
         //TODO : nothing to say
     }
 
+    public void testOnClick(View view) {
+        if (change1==false) {
+            changeImage.setVisibility(View.INVISIBLE);
+            change1 = true;
+        } else {
+            changeImage.setVisibility(View.VISIBLE);
+            change1 = false;
+        }
+    }
 }//end class ResultActivity
 
 

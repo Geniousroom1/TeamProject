@@ -19,8 +19,8 @@ public class StartActivity extends AppCompatActivity {
     public void goSecondActivity(View view) {
 
         Intent intent = new Intent(this, SecondActivity.class);
-
         startActivity(intent);
+        finish();
 
     }
 }
