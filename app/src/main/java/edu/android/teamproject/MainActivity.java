@@ -12,6 +12,8 @@ import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
 
+
+    // 멤버 변수 선언
     private ImageView imageView;
     private ImageButton btn1, btn2, btn3;
     private boolean turn;
