@@ -27,11 +27,13 @@ public class ResultActivity extends AppCompatActivity {
         btn2 = (ImageButton) findViewById(R.id.imageButton2);
         btn3 = (ImageButton) findViewById(R.id.imageButton3);
         ConstraintLayout rlBottomSheet = (ConstraintLayout) findViewById(R.id.rl_bottom_sheet);
+        btn2.setVisibility(View.INVISIBLE);
+        btn3.setVisibility(View.INVISIBLE);
+        turn = true;
 
         mainImage.setImageBitmap(SecondActivity.bit);
 //        imageView.setBackground(new ShapeDrawable(new OvalShape())); //뒤에 검은 배경화면
         mainImage.setClickable(true);
-
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
