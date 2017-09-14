@@ -10,7 +10,6 @@
         android:id="@+id/btn_gallery"
         android:layout_width="141dp"
         android:layout_height="111dp"
-        android:onClick="SelectPicture"
         android:text="Gallery"
         android:background="@drawable/button"
         android:layout_marginRight="8dp"

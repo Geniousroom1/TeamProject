@@ -1,36 +1,36 @@
 package edu.android.teamproject;
 
 import android.content.Intent;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
+import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-public class MainActivity extends AppCompatActivity {
+public class ResultActivity extends AppCompatActivity {
 
 
     // 멤버 변수 선언
-    private ImageView imageView;
+    private ImageView mainImage;
     private ImageButton btn1, btn2, btn3;
     private boolean turn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        imageView = (ImageView) findViewById(R.id.imageView);
+        setContentView(R.layout.activity_result);
+        mainImage = (ImageView) findViewById(R.id.mainImage);
         btn1 = (ImageButton) findViewById(R.id.imageButton);
         btn2 = (ImageButton) findViewById(R.id.imageButton2);
         btn3 = (ImageButton) findViewById(R.id.imageButton3);
-        imageView.setImageBitmap(SecondActivity.bit);
-        //태준 수정 테스트
+        ConstraintLayout rlBottomSheet = (ConstraintLayout) findViewById(R.id.rl_bottom_sheet);
 
-        imageView.setBackground(new ShapeDrawable(new OvalShape()));
-       imageView.setClickable(true);
+        mainImage.setImageBitmap(SecondActivity.bit);
+//        imageView.setBackground(new ShapeDrawable(new OvalShape())); //뒤에 검은 배경화면
+        mainImage.setClickable(true);
 
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,15 +45,26 @@ public class MainActivity extends AppCompatActivity {
                     turn = false;
                 }
             }
+        });//end setOnClickListener (First btn)
+
+        BottomSheetBehavior bottomSheetBehavior = BottomSheetBehavior.from(rlBottomSheet);
+        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
         });
-    }
+
+    }//end onCreate
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-
-
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -62,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         //TODO : nothing to say
     }
 
-}
+}//end class ResultActivity
 
 
 
