@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         btn2 = (ImageButton) findViewById(R.id.imageButton2);
         btn3 = (ImageButton) findViewById(R.id.imageButton3);
         imageView.setImageBitmap(SecondActivity.bit);
+        //태준 수정 테스트
 
         imageView.setBackground(new ShapeDrawable(new OvalShape()));
        imageView.setClickable(true);
