@@ -1,8 +1,11 @@
 package edu.android.teamproject;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +16,8 @@ public class SecondActivity extends AppCompatActivity {
 
     public static final int REQ_CODE = 1000;
     public static final int PICK_FROM_CAMERA = 1;
-    private Button btn_gallery, btn_picture;
+    private static final int REQ_PERM_CAMERA = 10; // 0 ~ 255, -128 ~ 127
+    private Button btn_gallery;
     public static Bitmap bit = null;
 
     @Override
@@ -31,15 +35,6 @@ public class SecondActivity extends AppCompatActivity {
                 startActivityForResult(intent, PICK_FROM_CAMERA);
             }//end onClick@
         });//end click Gallery
-
-        btn_picture = (Button) findViewById(R.id.btn_picture);
-        btn_picture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, REQ_CODE);
-            }//end onClick@
-        });//end click Camera
 
     }//end onCreate();
 
@@ -75,4 +70,16 @@ public class SecondActivity extends AppCompatActivity {
         }//end Gallery
 
     }//end onActivityResult
+
+    public void startCamera(View view) {
+        int check = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+        if(check == PackageManager.PERMISSION_GRANTED){
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent, REQ_CODE);
+        }else {
+            String[] permissions = {Manifest.permission.CAMERA};
+            ActivityCompat.requestPermissions(this, permissions, REQ_PERM_CAMERA);
+        }
+
+    }//end startCamera
 }//end class SecondActivity
