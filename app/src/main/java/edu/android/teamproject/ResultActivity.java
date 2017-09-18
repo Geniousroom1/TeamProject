@@ -13,6 +13,11 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+// 핀치 줌(zoom)기능을 구현할 import
+import uk.co.senab.photoview.PhotoViewAttacher;
+
+
+
 public class ResultActivity extends AppCompatActivity implements View.OnTouchListener{
 
 
@@ -22,11 +27,14 @@ public class ResultActivity extends AppCompatActivity implements View.OnTouchLis
     private boolean turn;
     private boolean change1;
     private ConstraintLayout rlBottomSheet;
+    private PhotoViewAttacher attacher; // 핀치 줌 멤버변수
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+
+
 
         //private 변수로 설정한 키들을 activity_result.xml에서 알맞는 키를 찾아줌
         rlBottomSheet = (ConstraintLayout) findViewById(R.id.rl_bottom_sheet);
@@ -35,6 +43,14 @@ public class ResultActivity extends AppCompatActivity implements View.OnTouchLis
         btn1 = (ImageButton) findViewById(R.id.imageButton);
         btn2 = (ImageButton) findViewById(R.id.imageButton2);
         btn3 = (ImageButton) findViewById(R.id.imageButton3);
+
+        // 핀치 줌 멤버변수에 zoon in-out이 필요한 imageView를 넣어줌
+        attacher = new PhotoViewAttacher(mainImage);
+
+
+
+
+
         // end search
 
         //버튼 2,3번과 이모티콘이미지(test용) 을 invisible (보이지않는) 상태로 설정
@@ -104,6 +120,8 @@ public class ResultActivity extends AppCompatActivity implements View.OnTouchLis
             changeImage.setVisibility(View.VISIBLE);
             change1 = false;
             changeImage.setOnTouchListener(this);
+
+
         }
     }//end testOnClick
     float oldXvalue;
@@ -123,6 +141,8 @@ public class ResultActivity extends AppCompatActivity implements View.OnTouchLis
         } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
             v.setX(event.getRawX() - oldXvalue);
             v.setY(event.getRawY() - (oldYvalue + v.getHeight()));
+
+
             //  Log.i("Tag2", "Action Down " + me.getRawX() + "," + me.getRawY());
         } else if (event.getAction() == MotionEvent.ACTION_UP) {
 
