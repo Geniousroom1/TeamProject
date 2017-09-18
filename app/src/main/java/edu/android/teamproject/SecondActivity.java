@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.media.Image;
+import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -12,11 +14,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.io.IOException;
+
 public class SecondActivity extends AppCompatActivity {
 
     public static final int REQ_CODE_CAMERA = 1000; // 카메라 키값
     public static final int PICK_FROM_GALLERY = 1; // 갤러리 키값
-    private static final int REQ_PERM_GALLERY = 10; // 갤러리 키값
 
     private Button btn_gallery; // 갤러리 (앨범) 을 실행하는 버튼
 
@@ -33,9 +36,9 @@ public class SecondActivity extends AppCompatActivity {
         btn_gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_PICK); // 갤러리 인텐트 생성
-                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-                startActivityForResult(intent, PICK_FROM_GALLERY); //갤러리 인텐트 실행
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT); // 갤러리 인텐트 생성
+                intent.setType("image/*");
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_FROM_GALLERY); //갤러리 인텐트 실행
             }//end onClick@
         });//end click Gallery
 
@@ -50,9 +53,10 @@ public class SecondActivity extends AppCompatActivity {
         if (requestCode== REQ_CODE_CAMERA && resultCode == RESULT_OK) {
 
             Bundle bundle =data.getExtras(); // data 인텐트를 저장하는 bundle 객체 생성
-
+//            Uri uri = data.getData();
             if (bundle !=null) {
                 bit = (Bitmap) bundle.get("data"); // 그림을 저장하는 bit 변수에 인텐트에서 받아온 번들값을 저장
+//                bit = (Bitmap) ;
                 Intent nextI = new Intent(this, ResultActivity.class); //
                 startActivity(nextI);
             } else  {
@@ -63,12 +67,15 @@ public class SecondActivity extends AppCompatActivity {
         }//end Camera
 
         if (requestCode== PICK_FROM_GALLERY && resultCode == RESULT_OK) {
-            Bundle bundle =data.getExtras();
-
-            if (bundle != null) {
-                bit = (Bitmap) bundle.get("data");
-                Intent nextI = new Intent(this, ResultActivity.class);
-                startActivity(nextI);
+            Uri uri = data.getData();
+            if(uri!=null) {
+                try {
+                    bit = MediaStore.Images.Media.getBitmap(getContentResolver(),uri);
+                    Intent nextI = new Intent(this, ResultActivity.class);
+                    startActivity(nextI);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
                 Toast.makeText(this, "취소", Toast.LENGTH_SHORT).show();
             }
@@ -86,7 +93,7 @@ public class SecondActivity extends AppCompatActivity {
             startActivityForResult(intent, REQ_CODE_CAMERA);
         }else {
             String[] permissions = {Manifest.permission.CAMERA};
-            ActivityCompat.requestPermissions(this, permissions, REQ_PERM_GALLERY);
+            ActivityCompat.requestPermissions(this, permissions, REQ_CODE_CAMERA);
         }
 
     }//end startCamera
