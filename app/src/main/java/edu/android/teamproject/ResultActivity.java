@@ -1,9 +1,15 @@
 package edu.android.teamproject;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +20,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 // 핀치 줌(zoom)기능을 구현할 import
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import uk.co.senab.photoview.PhotoViewAttacher;
 
 
@@ -22,12 +33,16 @@ public class ResultActivity extends AppCompatActivity implements View.OnTouchLis
 
 
     // 멤버 변수 선언
+    public static int WRITE_PERMISTION = 9;
     private ImageView mainImage,changeImage;
     private ImageButton btn1, btn2, btn3;
     private boolean turn;
     private boolean change1;
     private ConstraintLayout rlBottomSheet;
     private PhotoViewAttacher attacher; // 핀치 줌 멤버변수
+    private float oldXvalue;
+    private float oldYvalue;
+    //
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +61,6 @@ public class ResultActivity extends AppCompatActivity implements View.OnTouchLis
 
         // 핀치 줌 멤버변수에 zoon in-out이 필요한 imageView를 넣어줌
         attacher = new PhotoViewAttacher(mainImage);
-
-
-
-
-
         // end search
 
         //버튼 2,3번과 이모티콘이미지(test용) 을 invisible (보이지않는) 상태로 설정
@@ -124,8 +134,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnTouchLis
 
         }
     }//end testOnClick
-    float oldXvalue;
-    float oldYvalue;
+
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
@@ -141,8 +150,6 @@ public class ResultActivity extends AppCompatActivity implements View.OnTouchLis
         } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
             v.setX(event.getRawX() - oldXvalue);
             v.setY(event.getRawY() - (oldYvalue + v.getHeight()));
-
-
             //  Log.i("Tag2", "Action Down " + me.getRawX() + "," + me.getRawY());
         } else if (event.getAction() == MotionEvent.ACTION_UP) {
 
@@ -175,12 +182,45 @@ public class ResultActivity extends AppCompatActivity implements View.OnTouchLis
                     v.setY(height);
                 }
             }
-
-
-        }
+        }//end if-else
         return true;
+    }//end onTouch
 
-    }
+    public void screenShot(View view) {
+        int check = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if(check == PackageManager.PERMISSION_GRANTED){
+            Bitmap bitmap = takeScreenshot();
+            saveBitmap(bitmap);
+        }else {
+            String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            ActivityCompat.requestPermissions(this, permissions, WRITE_PERMISTION);
+        }
+    }//end screenShot
+
+    public Bitmap takeScreenshot() {
+        View rootView = findViewById(android.R.id.content).getRootView();
+        rootView.setDrawingCacheEnabled(true);
+        return rootView.getDrawingCache();
+    }//end takeScreenshot
+
+    public void saveBitmap(Bitmap bitmap) {
+        File file = null;
+        FileOutputStream fos = null;
+        try {
+            file = new File(Environment.getExternalStorageDirectory() + "/screenshot.png");
+            fos = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            Log.e("GREC", e.getMessage(), e);
+        } catch (IOException e) {
+            Log.e("GREC", e.getMessage(), e);
+        }
+    }//end saveBitmap
+
+
+
 }//end class ResultActivity
 
 

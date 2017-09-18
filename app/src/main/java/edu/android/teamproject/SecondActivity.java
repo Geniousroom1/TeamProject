@@ -36,7 +36,7 @@ public class SecondActivity extends AppCompatActivity {
         btn_gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT); // 갤러리 인텐트 생성
+                Intent intent = new Intent(Intent.ACTION_PICK); // 갤러리 인텐트 생성
                 intent.setType("image/*");
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_FROM_GALLERY); //갤러리 인텐트 실행
             }//end onClick@
@@ -66,15 +66,16 @@ public class SecondActivity extends AppCompatActivity {
 
         }//end Camera
 
-        if (requestCode== PICK_FROM_GALLERY && resultCode == RESULT_OK) {
+        if (requestCode== PICK_FROM_GALLERY && resultCode == RESULT_OK ) {
             Uri uri = data.getData();
             if(uri!=null) {
                 try {
                     bit = MediaStore.Images.Media.getBitmap(getContentResolver(),uri);
                     Intent nextI = new Intent(this, ResultActivity.class);
                     startActivity(nextI);
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
+                    Toast.makeText(this, "에러 발생", Toast.LENGTH_SHORT).show();
                 }
             } else {
                 Toast.makeText(this, "취소", Toast.LENGTH_SHORT).show();
@@ -88,6 +89,7 @@ public class SecondActivity extends AppCompatActivity {
     // 카메라로 찍어서 값을 넘겨줌
     public void startCamera(View view) {
         int check = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+
         if(check == PackageManager.PERMISSION_GRANTED){
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(intent, REQ_CODE_CAMERA);
