@@ -187,14 +187,17 @@ public class ResultActivity extends AppCompatActivity implements View.OnTouchLis
     }//end onTouch
 
     public void screenShot(View view) {
-        int check = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if(check == PackageManager.PERMISSION_GRANTED){
+
+        int checkWrite = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if(checkWrite == PackageManager.PERMISSION_GRANTED){
             Bitmap bitmap = takeScreenshot();
             saveBitmap(bitmap);
         }else {
             String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
             ActivityCompat.requestPermissions(this, permissions, WRITE_PERMISTION);
         }
+
     }//end screenShot
 
     public Bitmap takeScreenshot() {
