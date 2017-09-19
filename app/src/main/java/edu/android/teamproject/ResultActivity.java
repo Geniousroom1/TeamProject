@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -222,7 +223,52 @@ public class ResultActivity extends AppCompatActivity implements View.OnTouchLis
         }
     }//end saveBitmap
 
+    // 흑백필터를 비트맵에 적용하는 메소드
+    public static Bitmap createContrast(Bitmap src) { //흑백
+        int width = src.getWidth();
+        int height = src.getHeight();
+        // 비트맵을 만듭니다. setPixel이라는 함수를 통해서 각 픽셀에 해당 필터를 적용할 예정입니다.
+        Bitmap bmOut = Bitmap.createBitmap(width, height, src.getConfig());
+        int A, R, G, B; // A는 알파값(쉽게 말하면 투명도), 나머지는 RGB 아시지요?
+        int pixel;
+        double contrast = 50.0;
 
+        // 픽셀 하나하나씩 돌려봅니다.
+        for(int x = 0; x < width; ++x) {
+            for(int y = 0; y < height; ++y) {
+                // get pixel color
+                pixel = src.getPixel(x, y);
+                A = Color.alpha(pixel);
+                // 아래 작업은 저도 퍼온 함수입니다. 255와 지금의 값과 contrast라는 명암비를 곱한 값을 가지고 0, 255(흑과백)
+                // 을 결정하는 정도로 보면 됩니다.
+                R = Color.red(pixel);
+                R = (int)(((((R / 255.0) - 0.5) * contrast) + 0.5) * 255.0);
+                if(R < 0) { R = 0; }
+                else if(R > 255) { R = 255; }
+
+                G = Color.red(pixel);
+                G = (int)(((((G / 255.0) - 0.5) * contrast) + 0.5) * 255.0);
+                if(G < 0) { G = 0; }
+                else if(G > 255) { G = 255; }
+
+                B = Color.red(pixel);
+                B = (int)(((((B / 255.0) - 0.5) * contrast) + 0.5) * 255.0);
+                if(B < 0) { B = 0; }
+                else if(B > 255) { B = 255; }
+
+                // 새로운 픽셀을 적용합니다.
+                bmOut.setPixel(x, y, Color.argb(A, R, G, B));
+            }
+        }
+        return bmOut;
+    }
+
+
+    // 버튼 클릭시 흑백 필터 적용!
+    public void onBlackFilter(View view) {
+        Bitmap bit = createContrast(SecondActivity.bit);
+        mainImage.setImageBitmap(bit);
+    }
 
 }//end class ResultActivity
 
