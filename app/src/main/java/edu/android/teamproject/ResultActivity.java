@@ -5,11 +5,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,12 +20,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 // 핀치 줌(zoom)기능을 구현할 import
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import uk.co.senab.photoview.PhotoViewAttacher;
 
@@ -43,6 +53,8 @@ public class ResultActivity extends AppCompatActivity implements View.OnTouchLis
     private PhotoViewAttacher attacher; // 핀치 줌 멤버변수
     private float oldXvalue;
     private float oldYvalue;
+    private CoordinatorLayout mainScreen;
+    private Bitmap mainimg;
     //
 
     @Override
@@ -56,9 +68,10 @@ public class ResultActivity extends AppCompatActivity implements View.OnTouchLis
         rlBottomSheet = (ConstraintLayout) findViewById(R.id.rl_bottom_sheet);
         mainImage = (ImageView) findViewById(R.id.mainImage);
         changeImage = (ImageView)findViewById(R.id.changeImage);
-        btn1 = (ImageButton) findViewById(R.id.imageButton);
+        btn1 = (ImageButton) findViewById(R.id.imageButton1);
         btn2 = (ImageButton) findViewById(R.id.imageButton2);
         btn3 = (ImageButton) findViewById(R.id.imageButton3);
+        mainScreen = (CoordinatorLayout) findViewById(R.id.mainScreen);
 
         // 핀치 줌 멤버변수에 zoon in-out이 필요한 imageView를 넣어줌
         attacher = new PhotoViewAttacher(mainImage);
@@ -71,6 +84,11 @@ public class ResultActivity extends AppCompatActivity implements View.OnTouchLis
         //end set.invisible
 
         // MainImage 에 secondActivity에서 저장한 사진을 set
+        InputStream is = null;
+        InputStreamReader reader = null;
+        BufferedInputStream bis = null;
+//        is = new FileInputStream();
+//        reader (is)
         mainImage.setImageBitmap(SecondActivity.bit);
         mainImage.setClickable(true);
         //end setMainImage
@@ -188,40 +206,33 @@ public class ResultActivity extends AppCompatActivity implements View.OnTouchLis
     }//end onTouch
 
     public void screenShot(View view) {
+        mainScreen.buildDrawingCache();
+        Bitmap capView = mainScreen.getDrawingCache();
+        FileOutputStream fos = null;
+        String filename = "scr_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 
         int checkWrite = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
         if(checkWrite == PackageManager.PERMISSION_GRANTED){
-            Bitmap bitmap = takeScreenshot();
-            saveBitmap(bitmap);
+            try {
+                fos = new FileOutputStream(Environment.getExternalStorageDirectory().toString()+"/TeamProject/"+filename+".jpeg");
+                capView.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://"+"TeamProject/"+"*"+".jpeg")));
+                Toast.makeText(getApplicationContext(), "Captured!", Toast.LENGTH_LONG).show();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }else {
             String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
             ActivityCompat.requestPermissions(this, permissions, WRITE_PERMISTION);
         }
 
     }//end screenShot
-
-    public Bitmap takeScreenshot() {
-        View rootView = findViewById(android.R.id.content).getRootView();
-        rootView.setDrawingCacheEnabled(true);
-        return rootView.getDrawingCache();
-    }//end takeScreenshot
-
-    public void saveBitmap(Bitmap bitmap) {
-        File file = null;
-        FileOutputStream fos = null;
-        try {
-            file = new File(Environment.getExternalStorageDirectory() + "/screenshot.png");
-            fos = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-            fos.flush();
-            fos.close();
-        } catch (FileNotFoundException e) {
-            Log.e("GREC", e.getMessage(), e);
-        } catch (IOException e) {
-            Log.e("GREC", e.getMessage(), e);
-        }
-    }//end saveBitmap
 
     // 흑백필터를 비트맵에 적용하는 메소드
     public static Bitmap createContrast(Bitmap src) { //흑백

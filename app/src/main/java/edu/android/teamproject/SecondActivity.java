@@ -1,6 +1,7 @@
 package edu.android.teamproject;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -10,6 +11,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,14 +19,18 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class SecondActivity extends AppCompatActivity {
 
+    private String mCurrentPhotoPath;
     public static final int REQ_CODE_CAMERA = 1000; // 카메라 키값
     public static final int PICK_FROM_GALLERY = 1; // 갤러리 키값
     public static final int PERMISTION_GALLERY = 2;
     public static final int PERMISTION_CAMERA = 3;
+    public static final int PERMISTION_WRITE = 4;
 
     private static Uri imageUri;
     public static Bitmap bit = null; // 그림을 저장할 공간.
@@ -40,7 +46,9 @@ public class SecondActivity extends AppCompatActivity {
 //        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
 //          Uri.parse("file://"+ "폴더위치"+"파일이름"+".파일확장자"))); // 미디어 스캐닝
 
-//        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://"+ "image"+"*"+".png")));
+        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://"+"/*/"+"*"+".jpeg")));
+        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://"+"/*/"+"*"+".jpg")));
+        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://"+"/*/"+"*"+".png")));
 
     }//end onCreate();
 
@@ -53,14 +61,16 @@ public class SecondActivity extends AppCompatActivity {
         if (requestCode== REQ_CODE_CAMERA && resultCode == RESULT_OK) {
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inPreferredConfig = Bitmap.Config.RGB_565;
-            Bundle bundle = data.getExtras();// data 인텐트를 저장하는 bundle 객체 생성
-            if (bundle !=null) {
-                bit = (Bitmap) bundle.get("data"); // 그림을 저장하는 bit 변수에 인텐트에서 받아온 번들값을 저장
-                Intent nextI = new Intent(this, ResultActivity.class);
-                startActivity(nextI);
-            } else  {
-                Toast.makeText(this, "취소", Toast.LENGTH_SHORT).show();
-            }
+                try {
+                    bit = MediaStore.Images.Media.getBitmap(getContentResolver(),imageUri);
+                    Intent nextI = new Intent(this, ResultActivity.class);
+                    startActivity(nextI);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(this, "취소", Toast.LENGTH_SHORT).show();
+                }
+
+
         }else{
 
         }//end Camera
@@ -88,22 +98,15 @@ public class SecondActivity extends AppCompatActivity {
     // 카메라로 찍어서 값을 넘겨줌
     public void startCamera(View view) {
         int check = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+        int check2 = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
-        if(check == PackageManager.PERMISSION_GRANTED){
+        if(check == PackageManager.PERMISSION_GRANTED&& check2== PackageManager.PERMISSION_GRANTED){
             try {
-                imageUri = null;
+                File photoFile = null;
+                photoFile = createImageFile();
+                imageUri = FileProvider.getUriForFile(this,"edu.android.teamproject",photoFile);
+
                 Intent intent = new Intent();
-
-//                String path = Environment.getExternalStorageDirectory().getAbsolutePath();
-//                String folderPath = path + File.separator + folderName;
-//                filePath = path + File.separator + folderName +".jpg";
-//
-//                File fileFolderPath = new File(folderPath);
-//                fileFolderPath.mkdir();
-//
-//                File file = new File(filePath);
-//                imageUri = Uri.fromFile(file);
-
                 intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                 startActivityForResult(intent, REQ_CODE_CAMERA);
@@ -112,11 +115,28 @@ public class SecondActivity extends AppCompatActivity {
             }
 
         }else {
-            String[] permissions = {Manifest.permission.CAMERA};
+            String[] permissions = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
             ActivityCompat.requestPermissions(this, permissions, PERMISTION_CAMERA);
+            ActivityCompat.requestPermissions(this, permissions, PERMISTION_WRITE);
         }
 
     }//end startCamera
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "SCR_" + timeStamp;
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.getAbsolutePath();
+        return image;
+    }//end createImageFile
 
     public void startGallery(View view) {
         int check = ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
