@@ -1,19 +1,17 @@
 package edu.android.teamproject;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.hardware.Camera;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
@@ -21,7 +19,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 public class SecondActivity extends AppCompatActivity {
 
@@ -63,7 +60,7 @@ public class SecondActivity extends AppCompatActivity {
             options.inPreferredConfig = Bitmap.Config.RGB_565;
                 try {
                     bit = MediaStore.Images.Media.getBitmap(getContentResolver(),imageUri);
-                    Intent nextI = new Intent(this, ResultActivity.class);
+                    Intent nextI = new Intent(this, MainActivity.class);
                     startActivity(nextI);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -80,7 +77,7 @@ public class SecondActivity extends AppCompatActivity {
             if(uri!=null) {
                 try {
                     bit = MediaStore.Images.Media.getBitmap(getContentResolver(),uri);
-                    Intent nextI = new Intent(this, ResultActivity.class);
+                    Intent nextI = new Intent(this, MainActivity.class);
                     startActivity(nextI);
                 } catch (Exception e) {
                     e.printStackTrace();
