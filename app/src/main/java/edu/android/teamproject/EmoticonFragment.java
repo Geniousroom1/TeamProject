@@ -38,40 +38,31 @@ public class EmoticonFragment extends Fragment {
     // 이모티콘 종류별 배열로 묶어서 상수 정의
     public static final int[][] IMAGE_EMOTICONS = {
             {// 0번째 탭에서 필요한 이미지
-                    R.drawable.android1, R.drawable.android2, R.drawable.android3,
-                    R.drawable.android4, R.drawable.android5, R.drawable.android6,
-                    R.drawable.android7, R.drawable.android8,
-                    R.drawable.android1, R.drawable.android2, R.drawable.android3,
-                    R.drawable.android4, R.drawable.android5, R.drawable.android6,
-                    R.drawable.android7, R.drawable.android8,
-                    R.drawable.android1, R.drawable.android2, R.drawable.android3,
-                    R.drawable.android4, R.drawable.android5, R.drawable.android6,
-                    R.drawable.android7, R.drawable.android8,
-                    R.drawable.android1, R.drawable.android2, R.drawable.android3,
-                    R.drawable.android4, R.drawable.android5, R.drawable.android6,
-                    R.drawable.android7, R.drawable.android8,
-                    R.drawable.android1, R.drawable.android2, R.drawable.android3,
-                    R.drawable.android4, R.drawable.android5, R.drawable.android6,
-                    R.drawable.android7, R.drawable.android8,
-                    R.drawable.android1, R.drawable.android2, R.drawable.android3,
-                    R.drawable.android4, R.drawable.android5, R.drawable.android6,
-                    R.drawable.android7, R.drawable.android8,
-                    R.drawable.android1, R.drawable.android2, R.drawable.android3,
-                    R.drawable.android4, R.drawable.android5, R.drawable.android6,
-                    R.drawable.android7, R.drawable.android8,
-                    R.drawable.android1, R.drawable.android2, R.drawable.android3,
-                    R.drawable.android4, R.drawable.android5, R.drawable.android6,
-                    R.drawable.android7, R.drawable.android8,
-                    R.drawable.android1, R.drawable.android2, R.drawable.android3,
-                    R.drawable.android4, R.drawable.android5, R.drawable.android6,
-                    R.drawable.android7, R.drawable.android8
+                    R.drawable.a1, R.drawable.a2, R.drawable.a3,R.drawable.a4, R.drawable.a5,
+                    R.drawable.a6, R.drawable.a7, R.drawable.a8,R.drawable.a9, R.drawable.a10,
+                    R.drawable.a11, R.drawable.a12,R.drawable.a13, R.drawable.a14, R.drawable.a15,
+                    R.drawable.a16, R.drawable.a17, R.drawable.a18, R.drawable.a19, R.drawable.a20,
+                    R.drawable.a21, R.drawable.a22, R.drawable.a23, R.drawable.a24, R.drawable.a25,
+                    R.drawable.a26, R.drawable.a27, R.drawable.a28, R.drawable.a29, R.drawable.a30,
+                    R.drawable.a31, R.drawable.a32, R.drawable.a33, R.drawable.a34, R.drawable.a35,
+                    R.drawable.a36, R.drawable.a37, R.drawable.a38, R.drawable.a39, R.drawable.a40,
+                    R.drawable.a41, R.drawable.a42, R.drawable.a43, R.drawable.a44, R.drawable.a45,
+                    R.drawable.a46, R.drawable.a47, R.drawable.a48, R.drawable.a49, R.drawable.a50,
+                    R.drawable.a51, R.drawable.a52, R.drawable.a53, R.drawable.a54, R.drawable.a55,
+                    R.drawable.a56,
             },
             {// 1번째 탭에서 필요한 이미지
-                    R.drawable.p1, R.drawable.p2, R.drawable.p3,
+                    R.drawable.a1, R.drawable.c1111, R.drawable.p3,
                     R.drawable.p4, R.drawable.p5, R.drawable.p6,
                     R.drawable.p7, R.drawable.p8, R.drawable.p9
             },
-            {}, {}, {}, {}, {}, {}, {}
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
     };
 
     public EmoticonFragment() {
@@ -215,7 +206,7 @@ public class EmoticonFragment extends Fragment {
             if (convertView == null) {
                 // convertView에 암것도 없으면 넣어주고,
                 iv = new ImageView(context);
-                iv.setLayoutParams(new ViewGroup.LayoutParams(110, 110));
+                iv.setLayoutParams(new ViewGroup.LayoutParams(90, 90));
                 iv.setPadding(5, 10, 5, 10);
 
             } else {
