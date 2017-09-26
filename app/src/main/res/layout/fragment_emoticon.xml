@@ -35,13 +35,13 @@
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/android1" />
+            android:icon="@drawable/tab1" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/tabItem2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/android2" />
+            android:icon="@drawable/tab2" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/tabItem3"
@@ -79,11 +79,6 @@
             android:layout_height="wrap_content"
             android:icon="@drawable/android8" />
 
-        <android.support.design.widget.TabItem
-            android:id="@+id/tabItem9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:icon="@drawable/android1" />
     </android.support.design.widget.TabLayout>
 
 

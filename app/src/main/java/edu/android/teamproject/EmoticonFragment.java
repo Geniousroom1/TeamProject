@@ -37,12 +37,12 @@ public class EmoticonFragment extends Fragment {
 
     // 이모티콘 종류별 배열로 묶어서 상수 정의
     public static final int[][] IMAGE_EMOTICONS = {
-            {// 0번째 탭에서 필요한 이미지
+            {// 0번째 탭에서 필요한 이미지 - 표정
                     R.drawable.a1, R.drawable.a2, R.drawable.a3,R.drawable.a4, R.drawable.a5,
                     R.drawable.a6, R.drawable.a7, R.drawable.a8,R.drawable.a9, R.drawable.a10,
                     R.drawable.a11, R.drawable.a12,R.drawable.a13, R.drawable.a14, R.drawable.a15,
                     R.drawable.a16, R.drawable.a17, R.drawable.a18, R.drawable.a19, R.drawable.a20,
-                    R.drawable.a21, R.drawable.a22, R.drawable.a23, R.drawable.a24, R.drawable.a25,
+                    R.drawable.b21, R.drawable.a22, R.drawable.a23, R.drawable.a24, R.drawable.a25,
                     R.drawable.a26, R.drawable.a27, R.drawable.a28, R.drawable.a29, R.drawable.a30,
                     R.drawable.a31, R.drawable.a32, R.drawable.a33, R.drawable.a34, R.drawable.a35,
                     R.drawable.a36, R.drawable.a37, R.drawable.a38, R.drawable.a39, R.drawable.a40,
@@ -51,18 +51,37 @@ public class EmoticonFragment extends Fragment {
                     R.drawable.a51, R.drawable.a52, R.drawable.a53, R.drawable.a54, R.drawable.a55,
                     R.drawable.a56,
             },
-            {// 1번째 탭에서 필요한 이미지
-                    R.drawable.a1, R.drawable.c1111, R.drawable.p3,
-                    R.drawable.p4, R.drawable.p5, R.drawable.p6,
-                    R.drawable.p7, R.drawable.p8, R.drawable.p9
+            {// 1번째 탭에서 필요한 이미지 - 사람
+                    R.drawable.b1, R.drawable.b2, R.drawable.b3, R.drawable.b4, R.drawable.b5,
+                    R.drawable.b6, R.drawable.b7, R.drawable.b8, R.drawable.b9, R.drawable.b10,
+                    R.drawable.b11, R.drawable.b12, R.drawable.b13, R.drawable.b14, R.drawable.b15,
+                    R.drawable.b16, R.drawable.b17, R.drawable.b18, R.drawable.b19, R.drawable.b20,
+                    R.drawable.b21, R.drawable.b22, R.drawable.b23, R.drawable.b24, R.drawable.b25,
+                    R.drawable.b26, R.drawable.b27, R.drawable.b28, R.drawable.b29, R.drawable.b30,
+                    R.drawable.b31, R.drawable.b32, R.drawable.b33, R.drawable.b34, R.drawable.b35,
+                    R.drawable.b36, R.drawable.b37, R.drawable.b38, R.drawable.b39, R.drawable.b40,
+                    R.drawable.b41, R.drawable.b42, R.drawable.b43, R.drawable.b44, R.drawable.b45,
+                    R.drawable.b46, R.drawable.b47, R.drawable.b48,
+            },
+            {
+                    R.drawable.c1, R.drawable.c2, R.drawable.c3, R.drawable.c4, R.drawable.c5,
+                    R.drawable.c6, R.drawable.c7, R.drawable.c8, R.drawable.c9, R.drawable.c10,
+                    R.drawable.c11, R.drawable.c12, R.drawable.c13, R.drawable.c14, R.drawable.c15,
+                    R.drawable.c16, R.drawable.c17, R.drawable.c18, R.drawable.c19, R.drawable.c20,
+                    R.drawable.c21, R.drawable.c22, R.drawable.c23, R.drawable.c24, R.drawable.c25,
+                    R.drawable.c26, R.drawable.c27, R.drawable.c28, R.drawable.c29, R.drawable.c30,
+                    R.drawable.c31, R.drawable.c32, R.drawable.c33, R.drawable.c34, R.drawable.c35,
+                    R.drawable.c36, R.drawable.c37, R.drawable.c38, R.drawable.c39, R.drawable.c40,
+                    R.drawable.c41, R.drawable.c42, R.drawable.c43, R.drawable.c44, R.drawable.c45,
+                    R.drawable.c46, R.drawable.c47, R.drawable.c48,
+
             },
             {},
             {},
             {},
             {},
-            {},
-            {},
             {}
+
     };
 
     public EmoticonFragment() {
