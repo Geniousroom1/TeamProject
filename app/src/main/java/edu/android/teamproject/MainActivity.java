@@ -340,20 +340,4 @@ public class MainActivity extends AppCompatActivity
             ActivityCompat.requestPermissions(this, permissions, WRITE_PERMISTION);
         }
     }
-
-    public void txtMake(View view) {
-
-        StickerTextView tv_sticker = new StickerTextView(MainActivity.this);
-        tv_sticker.setText(editText.getText().toString());
-        inflatedLayout.addView(tv_sticker);
-
-    }
-
-    public void imgMake(View view) {
-
-        StickerImageView iv_sticker = new StickerImageView(MainActivity.this);
-        iv_sticker.setImageDrawable(getResources().getDrawable(R.drawable.c10));
-        inflatedLayout.addView(iv_sticker);
-
-    }
 }
