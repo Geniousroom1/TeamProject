@@ -204,6 +204,8 @@ public class ResultActivity extends AppCompatActivity implements View.OnTouchLis
     public void screenShot(View view) {
         mainScreen.buildDrawingCache();
         Bitmap capView = mainScreen.getDrawingCache();
+
+
         FileOutputStream fos = null;
         String filename = "scr_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 
