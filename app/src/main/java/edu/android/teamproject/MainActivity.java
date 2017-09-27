@@ -4,23 +4,19 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -39,19 +35,10 @@ public class MainActivity extends AppCompatActivity
     private ArrayList<StickerImageView> arrayList;
     private int b = 0;
 
-    private FloatingActionButton floatingActionButton, floatingBtnEmoticon, floatingBtnFilter, floatingBtnCapture;
-    private Animation mShowButton;
-    private Animation mHideButton;
-    private Animation mShowResButton;
-    private Animation mHideResButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("*"+".jpeg")));
-        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("*"+".jpg")));
-        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("*"+".png")));
         frameLayout = (FrameLayout) findViewById(R.id.container);
         frameLayout.setVisibility(View.GONE);
         mainLayout = (FrameLayout) findViewById(R.id.frameLayout);
@@ -59,61 +46,6 @@ public class MainActivity extends AppCompatActivity
         cameraIMG = (ImageView) findViewById(R.id.cameraView);
         cameraIMG.setImageBitmap(SecondActivity.bit);
         arrayList = new ArrayList<StickerImageView>();
-
-        // 플로팅 버튼 찾음
-        floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
-        floatingBtnEmoticon = (FloatingActionButton) findViewById(R.id.floatingBtnEmoticon);
-        floatingBtnFilter = (FloatingActionButton) findViewById(R.id.floatingBtnFilter);
-        floatingBtnCapture = (FloatingActionButton) findViewById(R.id.floatingBtnCapture);
-        floatingActionButton.setVisibility(View.VISIBLE);
-        floatingBtnEmoticon.setVisibility(View.GONE);
-        floatingBtnFilter.setVisibility(View.GONE);
-        floatingBtnCapture.setVisibility(View.GONE);
-        // 버튼에 넣을 애니메이션 찾음
-        mShowButton = AnimationUtils.loadAnimation(this, R.anim.show_button);
-        mHideButton = AnimationUtils.loadAnimation(this, R.anim.hide_button);
-        mShowResButton = AnimationUtils.loadAnimation(this, R.anim.show_res_button);
-        mHideResButton = AnimationUtils.loadAnimation(this, R.anim.hide_res_button);
-
-        // +플로팅 버튼 눌렀을 때
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                // 세 개의 플로팅 버튼이 GONE 상태이면, 버튼을 보여줌
-                if (floatingBtnEmoticon.getVisibility() == View.GONE &&
-                        floatingBtnFilter.getVisibility() == View.GONE) {
-
-                    floatingBtnEmoticon.setVisibility(View.VISIBLE);
-                    floatingBtnEmoticon.setClickable(true);
-                    floatingBtnFilter.setVisibility(View.VISIBLE);
-                    floatingBtnFilter.setClickable(true);
-                    floatingBtnCapture.setVisibility(View.VISIBLE);
-                    floatingBtnCapture.setClickable(true);
-
-                    floatingBtnEmoticon.startAnimation(mShowResButton);
-                    floatingBtnFilter.startAnimation(mShowResButton);
-                    floatingBtnCapture.startAnimation(mShowResButton);
-                    floatingActionButton.startAnimation(mShowButton);
-
-                    // 세 개의 플로팅 버튼이 VISIBLE 상태이면, 버튼을 GONE 상태로 변경
-                } else if (floatingBtnEmoticon.getVisibility() == View.VISIBLE &&
-                        floatingBtnFilter.getVisibility() == View.VISIBLE) {
-
-                    floatingBtnEmoticon.setVisibility(View.GONE);
-                    floatingBtnFilter.setVisibility(View.GONE);
-                    floatingBtnCapture.setVisibility(View.GONE);
-
-                    floatingBtnEmoticon.startAnimation(mHideResButton);
-                    floatingBtnFilter.startAnimation(mHideResButton);
-                    floatingBtnCapture.startAnimation(mHideResButton);
-                    floatingActionButton.startAnimation(mHideButton);
-                }
-
-
-            }
-        });
-
     } // end onCreate
 
 
@@ -153,23 +85,7 @@ public class MainActivity extends AppCompatActivity
         transaction.add(R.id.container, fragment);
         transaction.commit();
 
-        // 끼워 넣을 프래그먼트 레이아웃을 VISIBLE함
-        if (frameLayout.getVisibility() == View.GONE) {
-            frameLayout.setVisibility(View.VISIBLE);
-        }
-
-        // 나머지 플로팅 버튼 GONE
-        floatingBtnEmoticon.setVisibility(View.GONE);
-        floatingBtnEmoticon.setClickable(false);
-        floatingBtnFilter.setVisibility(View.GONE);
-        floatingBtnFilter.setClickable(false);
-        floatingBtnCapture.setVisibility(View.GONE);
-        floatingBtnCapture.setClickable(false);
-
-        floatingBtnEmoticon.startAnimation(mHideResButton);
-        floatingBtnFilter.startAnimation(mHideResButton);
-        floatingBtnCapture.startAnimation(mHideResButton);
-        floatingActionButton.startAnimation(mHideButton);
+       frameLayout.setVisibility(View.VISIBLE);
     }//end showEmoticon
 
 
@@ -185,7 +101,6 @@ public class MainActivity extends AppCompatActivity
     // 이벤트핸들러
     public void showFilter(View view) {
         // EmoticonFragment를 FrameLayout에 끼워넣기
-
         fm = getSupportFragmentManager();
         // EmoticonFragment를 찾음
         fragment = fm.findFragmentById(R.id.container);
@@ -196,29 +111,11 @@ public class MainActivity extends AppCompatActivity
             fragment = new FilterFragment();
             FragmentRepalce(fragment);
         }
-        //  frameLayout.removeAllViews(); // 프레임 레이아웃의 뷰를 모두 지움
-
+      //  frameLayout.removeAllViews(); // 프레임 레이아웃의 뷰를 모두 지움
         FragmentTransaction transaction = fm.beginTransaction();
         transaction.add(R.id.container, fragment);
         transaction.commit();
-
-        // 끼워 넣을 프래그먼트 레이아웃을 GONE함
-        if (frameLayout.getVisibility() == View.GONE) {
-            frameLayout.setVisibility(View.VISIBLE);
-        }
-
-        // 나머지 플로팅 버튼 GONE으로 변경
-        floatingBtnEmoticon.setVisibility(View.GONE);
-        floatingBtnEmoticon.setClickable(false);
-        floatingBtnFilter.setVisibility(View.GONE);
-        floatingBtnFilter.setClickable(false);
-        floatingBtnCapture.setVisibility(View.GONE);
-        floatingBtnCapture.setClickable(false);
-
-        floatingBtnEmoticon.startAnimation(mHideResButton);
-        floatingBtnFilter.startAnimation(mHideResButton);
-        floatingBtnCapture.startAnimation(mHideResButton);
-        floatingActionButton.startAnimation(mHideButton);
+        frameLayout.setVisibility(View.VISIBLE);
     }//end showFilter
 
 
@@ -238,14 +135,15 @@ public class MainActivity extends AppCompatActivity
         int checkWrite = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if(checkWrite == PackageManager.PERMISSION_GRANTED){
             try {
+                File file = new File(Environment.getExternalStorageDirectory().toString()+"/TeamProject");
+                file.mkdir();
                 fos = new FileOutputStream(Environment.getExternalStorageDirectory().toString()+"/TeamProject/"+filename+".jpeg");
                 capView.compress(Bitmap.CompressFormat.JPEG, 100, fos);
                 Toast.makeText(getApplicationContext(), "Captured!", Toast.LENGTH_LONG).show();
-                sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://"+"/*/"+"*"+".jpeg")));
-                sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://"+"/*/"+"*"+".jpg")));
-                sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://"+"/*/"+"*"+".png")));
+                DMediaScanner scanner = new DMediaScanner(this);
+                scanner.startScan(Environment.getExternalStorageDirectory().toString()+"/TeamProject/"+filename+".jpeg");
                 finish();
-            } catch (FileNotFoundException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             } finally {
                 try {
