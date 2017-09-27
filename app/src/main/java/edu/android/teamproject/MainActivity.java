@@ -276,10 +276,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void nobhidden(View view) {
-        for (int i = 0; i < imgList.size(); i++) {
-            StickerImageView siv = imgList.get(i);
-            siv.setControlItemsHidden(false);
-        }
+            for (int i = 0; i < imgList.size(); i++) {
+                StickerImageView siv = imgList.get(i);
+                siv.setControlItemsHidden(false);
+            }
 
             for (int i = 0; i < textList.size(); i++) {
                 StickerTextView stv = textList.get(i);
