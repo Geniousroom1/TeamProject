@@ -63,7 +63,7 @@ public class EmoticonFragment extends Fragment {
                     R.drawable.b41, R.drawable.b42, R.drawable.b43, R.drawable.b44, R.drawable.b45,
                     R.drawable.b46, R.drawable.b47, R.drawable.b48,
             },
-            {
+            { // 동물+꽃
                     R.drawable.c1, R.drawable.c2, R.drawable.c3, R.drawable.c4, R.drawable.c5,
                     R.drawable.c6, R.drawable.c7, R.drawable.c8, R.drawable.c9, R.drawable.c10,
                     R.drawable.c11, R.drawable.c12, R.drawable.c13, R.drawable.c14, R.drawable.c15,
@@ -76,8 +76,32 @@ public class EmoticonFragment extends Fragment {
                     R.drawable.c46, R.drawable.c47, R.drawable.c48,
 
             },
-            {},
-            {},
+            { // 음식
+                    R.drawable.d1, R.drawable.d2, R.drawable.d3, R.drawable.d4, R.drawable.d5,
+                    R.drawable.d6, R.drawable.d7, R.drawable.d8, R.drawable.d9, R.drawable.d10,
+                    R.drawable.d11, R.drawable.d12, R.drawable.d13, R.drawable.d14, R.drawable.d15,
+                    R.drawable.d16, R.drawable.d17, R.drawable.d18, R.drawable.d19, R.drawable.d20,
+                    R.drawable.d21, R.drawable.d22, R.drawable.d23, R.drawable.d24, R.drawable.d25,
+                    R.drawable.d26, R.drawable.d27, R.drawable.d28, R.drawable.d29, R.drawable.d30,
+                    R.drawable.d31, R.drawable.d32, R.drawable.d33, R.drawable.d34, R.drawable.d35,
+                    R.drawable.d36, R.drawable.d37, R.drawable.d38, R.drawable.d39, R.drawable.d40,
+                    R.drawable.d41, R.drawable.d42, R.drawable.d43, R.drawable.d44, R.drawable.d45,
+                    R.drawable.d46, R.drawable.d47, R.drawable.d48,
+
+            },
+            { // 스포츠
+                    R.drawable.e1, R.drawable.e2, R.drawable.e3, R.drawable.e4, R.drawable.e5,
+                    R.drawable.e6, R.drawable.e7, R.drawable.e8, R.drawable.e9, R.drawable.e10,
+                    R.drawable.e11, R.drawable.e12, R.drawable.e13, R.drawable.e14, R.drawable.e15,
+                    R.drawable.e16, R.drawable.e17, R.drawable.e18, R.drawable.e19, R.drawable.e20,
+                    R.drawable.e21, R.drawable.e22, R.drawable.e23, R.drawable.e24, R.drawable.e25,
+                    R.drawable.e26, R.drawable.e27, R.drawable.e28, R.drawable.e29, R.drawable.e30,
+                    R.drawable.e31, R.drawable.e32, R.drawable.e33, R.drawable.e34, R.drawable.e35,
+                    R.drawable.e36, R.drawable.e37, R.drawable.e38, R.drawable.e39, R.drawable.e40,
+                    R.drawable.e41, R.drawable.e42, R.drawable.e43, R.drawable.e44, R.drawable.e45,
+                    R.drawable.e46, R.drawable.e47, R.drawable.e48,
+
+            },
             {},
             {},
             {}
