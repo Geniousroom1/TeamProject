@@ -10,6 +10,7 @@ public class TextsActivity extends AppCompatActivity {
     public static String textActivity_Text;
     public static boolean textCancel;
     private EditText text;
+    public static StickerTextView tv_sticker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +28,7 @@ public class TextsActivity extends AppCompatActivity {
     public void btn_enter(View view) {
         textCancel = false;
         textActivity_Text = text.getText().toString();
-        StickerTextView tv_sticker = new StickerTextView(TextsActivity.this);
+        tv_sticker = new StickerTextView(TextsActivity.this);
         tv_sticker.setText(TextsActivity.textActivity_Text);
         MainActivity.inflatedLayout.addView(tv_sticker);
         finish();

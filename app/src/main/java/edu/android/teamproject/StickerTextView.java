@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -68,8 +69,19 @@ public class StickerTextView extends StickerView {
         return px/scaledDensity;
     }
 
+
     @Override
     protected void onScaling(boolean scaleUp) {
         super.onScaling(scaleUp);
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        return false;
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 }

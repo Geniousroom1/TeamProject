@@ -21,6 +21,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity
@@ -32,6 +33,8 @@ public class MainActivity extends AppCompatActivity
     private Fragment fragment;
     public static FrameLayout inflatedLayout;
     private ImageView cameraIMG;
+    private ArrayList<StickerImageView> arrayList;
+    private int b = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity
         inflatedLayout = (FrameLayout) findViewById(R.id.dummydata);
         cameraIMG = (ImageView) findViewById(R.id.cameraView);
         cameraIMG.setImageBitmap(SecondActivity.bit);
+        arrayList = new ArrayList<StickerImageView>();
 
     } // end onCreate
 
@@ -54,8 +58,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onTabItemClicked(int tab, int posotion) {
         int imgnum = EmoticonFragment.IMAGE_EMOTICONS[tab][posotion];
-
-        StickerImageView iv_sticker = new StickerImageView(MainActivity.this);
+        StickerImageView iv_sticker;
+        arrayList.add(iv_sticker = new StickerImageView(MainActivity.this));
         iv_sticker.setImageDrawable(getResources().getDrawable(imgnum));
         inflatedLayout.addView(iv_sticker);
 
@@ -155,4 +159,19 @@ public class MainActivity extends AppCompatActivity
         Intent textIntent = new Intent(this, TextsActivity.class);
         startActivity(textIntent);
     }//end textBtnClick
+
+    public void hidden(View view) {
+            for (int i = 0; i < arrayList.size(); i++) {
+                StickerImageView siv = arrayList.get(i);
+                siv.setControlItemsHidden(true);
+            }
+    }
+
+    public void nobhidden(View view) {
+        for (int i = 0; i < arrayList.size(); i++) {
+            StickerImageView siv = arrayList.get(i);
+            siv.setControlItemsHidden(false);
+        }
+    }
+
 }

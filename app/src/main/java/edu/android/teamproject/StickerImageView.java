@@ -6,12 +6,12 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 
 
 public class StickerImageView extends StickerView {
-
     private String owner_id;
     private ImageView iv_main;
     public StickerImageView(Context context) {
@@ -54,4 +54,18 @@ public class StickerImageView extends StickerView {
 
     public Bitmap getImageBitmap(){ return ((BitmapDrawable)this.iv_main.getDrawable()).getBitmap() ; }
 
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+
+        return false;
+    }
+
+    public void hidden () {
+
+    }
+
+    @Override
+    public void onClick(View view) {
+
+    }
 }
