@@ -37,8 +37,6 @@ public class MainActivity extends AppCompatActivity
     private ImageView cameraIMG;
     private ArrayList<StickerImageView> imgList;
     public static ArrayList<StickerTextView> textList;
-    private int b = 0;
-
     private FloatingActionButton floatingActionButton, floatingBtnEmoticon, floatingBtnFilter, floatingBtnCapture;
     private Animation mShowButton;
     private Animation mHideButton;
