@@ -102,9 +102,30 @@ public class EmoticonFragment extends Fragment {
                     R.drawable.e46, R.drawable.e47, R.drawable.e48,
 
             },
-            {},
-            {},
-            {}
+            { // 차
+                    R.drawable.f1, R.drawable.f2, R.drawable.f3, R.drawable.f4, R.drawable.f5,
+                    R.drawable.f6, R.drawable.f7, R.drawable.f8, R.drawable.f9, R.drawable.f10,
+                    R.drawable.f11, R.drawable.f12, R.drawable.f13, R.drawable.f14, R.drawable.f15,
+                    R.drawable.f16, R.drawable.f17, R.drawable.f18, R.drawable.f19, R.drawable.f20,
+                    R.drawable.f21, R.drawable.f22, R.drawable.f23, R.drawable.f24, R.drawable.f25,
+                    R.drawable.f26, R.drawable.f27, R.drawable.f28, R.drawable.f29, R.drawable.f30,
+                    R.drawable.f31, R.drawable.f32, R.drawable.f33, R.drawable.f34, R.drawable.f35,
+                    R.drawable.f36, R.drawable.f37, R.drawable.f38, R.drawable.f39, R.drawable.f40,
+                    R.drawable.f41, R.drawable.f42, R.drawable.f43, R.drawable.f44, R.drawable.f45,
+                    R.drawable.f46, R.drawable.f47, R.drawable.f48,
+            },
+            { // 국기
+                    R.drawable.g1, R.drawable.g2, R.drawable.g3, R.drawable.g4, R.drawable.g5,
+                    R.drawable.g6, R.drawable.g7, R.drawable.g8, R.drawable.g9, R.drawable.g10,
+                    R.drawable.g11, R.drawable.g12, R.drawable.g13, R.drawable.g14, R.drawable.g15,
+                    R.drawable.g16, R.drawable.g17, R.drawable.g18, R.drawable.g19, R.drawable.g20,
+                    R.drawable.g21, R.drawable.g22, R.drawable.g23, R.drawable.g24, R.drawable.g25,
+                    R.drawable.g26, R.drawable.g27, R.drawable.g28, R.drawable.g29, R.drawable.g30,
+                    R.drawable.g31, R.drawable.g32, R.drawable.g33, R.drawable.g34, R.drawable.g35,
+                    R.drawable.g36, R.drawable.g37, R.drawable.g38, R.drawable.g39, R.drawable.g40,
+                    R.drawable.g41, R.drawable.g42, R.drawable.g43, R.drawable.g44, R.drawable.g45,
+                    R.drawable.g46, R.drawable.g47, R.drawable.g48,
+            },
 
     };
 
