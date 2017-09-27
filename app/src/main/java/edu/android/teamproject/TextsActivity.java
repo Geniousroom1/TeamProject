@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import java.util.ArrayList;
 
 public class TextsActivity extends AppCompatActivity {
     public static String textActivity_Text;
@@ -28,7 +29,7 @@ public class TextsActivity extends AppCompatActivity {
     public void btn_enter(View view) {
         textCancel = false;
         textActivity_Text = text.getText().toString();
-        tv_sticker = new StickerTextView(TextsActivity.this);
+        MainActivity.textList.add(tv_sticker = new StickerTextView(TextsActivity.this));
         tv_sticker.setText(TextsActivity.textActivity_Text);
         MainActivity.inflatedLayout.addView(tv_sticker);
         finish();

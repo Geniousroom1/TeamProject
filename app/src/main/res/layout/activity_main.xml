@@ -27,6 +27,7 @@
         <ImageView
             android:id="@+id/cameraView"
             android:layout_width="match_parent"
+            android:onClick="hidden"
             android:layout_height="match_parent"
             app:srcCompat="@drawable/d" />
 
@@ -69,17 +70,6 @@
         app:layout_constraintLeft_toLeftOf="parent" />
 
     <Button
-        android:id="@+id/button_hidden"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="사라져라"
-        android:onClick="hidden"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent" />
-
-    <Button
         android:id="@+id/button_nohidden"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -88,9 +78,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
         app:layout_constraintLeft_toRightOf="@+id/button_text"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintRight_toLeftOf="@+id/button_hidden"
-        android:layout_marginRight="8dp" />
+        android:layout_marginLeft="8dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"

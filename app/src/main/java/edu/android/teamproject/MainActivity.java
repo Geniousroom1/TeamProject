@@ -35,7 +35,8 @@ public class MainActivity extends AppCompatActivity
     private Fragment fragment;
     public static FrameLayout inflatedLayout;
     private ImageView cameraIMG;
-    private ArrayList<StickerImageView> arrayList;
+    private ArrayList<StickerImageView> imgList;
+    public static ArrayList<StickerTextView> textList;
     private int b = 0;
 
     private FloatingActionButton floatingActionButton, floatingBtnEmoticon, floatingBtnFilter, floatingBtnCapture;
@@ -54,7 +55,8 @@ public class MainActivity extends AppCompatActivity
         inflatedLayout = (FrameLayout) findViewById(R.id.dummydata);
         cameraIMG = (ImageView) findViewById(R.id.cameraView);
         cameraIMG.setImageBitmap(SecondActivity.bit);
-        arrayList = new ArrayList<StickerImageView>();
+        imgList = new ArrayList<StickerImageView>();
+        textList = new ArrayList<StickerTextView>();
 
         // 플로팅 버튼 찾음
         floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
@@ -118,12 +120,12 @@ public class MainActivity extends AppCompatActivity
 
         int imgnum = EmoticonFragment.IMAGE_EMOTICONS[tab][posotion];
         StickerImageView iv_sticker;
-        arrayList.add(iv_sticker = new StickerImageView(MainActivity.this));
-        if(1<arrayList.size()){
-            for (int i = 0 ; i < arrayList.size() ; i++) {
-                arrayList.get(i).setControlItemsHidden(true);
+        imgList.add(iv_sticker = new StickerImageView(MainActivity.this));
+        if(1< imgList.size()){
+            for (int i = 0; i < imgList.size() ; i++) {
+                imgList.get(i).setControlItemsHidden(true);
             }
-            arrayList.get(arrayList.size()-1).setControlItemsHidden(false);
+            imgList.get(imgList.size()-1).setControlItemsHidden(false);
         }
         iv_sticker.setImageDrawable(getResources().getDrawable(imgnum));
         inflatedLayout.addView(iv_sticker);
@@ -261,17 +263,29 @@ public class MainActivity extends AppCompatActivity
     }//end textBtnClick
 
     public void hidden(View view) {
-            for (int i = 0; i < arrayList.size(); i++) {
-                StickerImageView siv = arrayList.get(i);
+            for (int i = 0; i < imgList.size(); i++) {
+                StickerImageView siv = imgList.get(i);
                 siv.setControlItemsHidden(true);
             }
+
+            for (int i = 0; i < textList.size(); i++) {
+                StickerTextView stv = textList.get(i);
+                stv.setControlItemsHidden(true);
+            }
+
     }
 
     public void nobhidden(View view) {
-        for (int i = 0; i < arrayList.size(); i++) {
-            StickerImageView siv = arrayList.get(i);
+        for (int i = 0; i < imgList.size(); i++) {
+            StickerImageView siv = imgList.get(i);
             siv.setControlItemsHidden(false);
         }
+
+            for (int i = 0; i < textList.size(); i++) {
+                StickerTextView stv = textList.get(i);
+                stv.setControlItemsHidden(false);
+            }
+
     }
 
 }

@@ -183,19 +183,20 @@ implements View.OnTouchListener, View.OnClickListener{
                         Log.v(TAG, "sticker view action up");
                         // 이모티콘 클릭 시 테두리 사라졌다가 생기게 함
                         if (toggle) {
-                            StickerView.this.addView(iv_border);
-                            StickerView.this.addView(iv_scale);
-                            StickerView.this.addView(iv_delete);
-                            StickerView.this.addView(iv_flip);
+                            iv_border.setVisibility(View.INVISIBLE);
+                            iv_scale.setVisibility(View.INVISIBLE);
+                            iv_delete.setVisibility(View.INVISIBLE);
+                            iv_flip.setVisibility(View.INVISIBLE);
                             toggle = false;
                         } else {
-                            StickerView.this.removeView(iv_border);
-                            StickerView.this.removeView(iv_scale);
-                            StickerView.this.removeView(iv_delete);
-                            StickerView.this.removeView(iv_flip);
+                            iv_border.setVisibility(View.VISIBLE);
+                            iv_scale.setVisibility(View.VISIBLE);
+                            iv_delete.setVisibility(View.VISIBLE);
+                            iv_flip.setVisibility(View.VISIBLE);
                             toggle = true;
                         }
                         break;
+
                 }
             }else if(view.getTag().equals("iv_scale")){
                 switch (event.getAction()) {
