@@ -41,25 +41,25 @@
             android:id="@+id/tabItem2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/tab2" />
+            android:icon="@drawable/tab2_1" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/tabItem3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/android2" />
+            android:icon="@drawable/tab3" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/tabItem4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/android4" />
+            android:icon="@drawable/tab4" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/tabItem5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/android5" />
+            android:icon="@drawable/tab5" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/tabItem6"
