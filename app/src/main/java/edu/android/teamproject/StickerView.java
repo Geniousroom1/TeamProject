@@ -158,6 +158,7 @@ implements View.OnTouchListener, View.OnClickListener{
 
     protected abstract View getMainView();
 
+    private boolean toggle;
     private OnTouchListener mTouchListener = new OnTouchListener() {
         @Override
         public boolean onTouch(View view, MotionEvent event) {
@@ -180,6 +181,20 @@ implements View.OnTouchListener, View.OnClickListener{
                         break;
                     case MotionEvent.ACTION_UP:
                         Log.v(TAG, "sticker view action up");
+                        // 이모티콘 클릭 시 테두리 사라졌다가 생기게 함
+                        if (toggle) {
+                            StickerView.this.addView(iv_border);
+                            StickerView.this.addView(iv_scale);
+                            StickerView.this.addView(iv_delete);
+                            StickerView.this.addView(iv_flip);
+                            toggle = false;
+                        } else {
+                            StickerView.this.removeView(iv_border);
+                            StickerView.this.removeView(iv_scale);
+                            StickerView.this.removeView(iv_delete);
+                            StickerView.this.removeView(iv_flip);
+                            toggle = true;
+                        }
                         break;
                 }
             }else if(view.getTag().equals("iv_scale")){
