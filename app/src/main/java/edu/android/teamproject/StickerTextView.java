@@ -36,7 +36,7 @@ public class StickerTextView extends StickerView {
 
         tv_main = new AutoResizeTextView(getContext());
         //tv_main.setTextSize(22);
-        tv_main.setTextColor(Color.WHITE);
+        tv_main.setTextColor(Color.WHITE); //TODO : 글자 컬러 바꾸는데 쓸수있음
         tv_main.setGravity(Gravity.CENTER);
         tv_main.setTextSize(400);
         tv_main.setShadowLayer(4, 0, 0, Color.BLACK);

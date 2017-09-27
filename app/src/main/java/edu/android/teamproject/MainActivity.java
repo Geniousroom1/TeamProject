@@ -285,7 +285,14 @@ public class MainActivity extends AppCompatActivity
                 StickerTextView stv = textList.get(i);
                 stv.setControlItemsHidden(false);
             }
-
     }
+
+
+
+    //TODO: 1. 필터 적용 기능 추가
+    //TODO: 2. 온터치시 안보이는게아닌 클릭시 안보이게 하는 기능으로 변환
+    //TODO: 3. 카메라 가로/세로 를 구분하는 기능 필요.
+    //TODO: 4. 텍스트입력시 Text Font 및 color 를 변경할수 있게 하는 기능 추가
+    //TODO: 5. 기능 구현후 UI 보완
 
 }

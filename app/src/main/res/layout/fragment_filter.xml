@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context="edu.android.teamproject.FilterFragment">
 
-    <!-- TODO: Update blank fragment layout -->
 
 
     <HorizontalScrollView

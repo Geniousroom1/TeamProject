@@ -190,7 +190,7 @@ public class EmoticonFragment extends Fragment {
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                // TODO: EmoticonFragment를 끼워넣음
+                //EmoticonFragment를 끼워넣음
                 int position = tab.getPosition();
                 gridView.setAdapter(new EmoticonAdapter(getContext(), position));
 
