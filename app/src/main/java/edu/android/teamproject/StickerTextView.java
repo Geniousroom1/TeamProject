@@ -14,7 +14,7 @@ import edu.android.teamproject.util.AutoResizeTextView;
 /**
  * Created by cheungchingai on 6/15/15.
  */
-public class StickerTextView extends StickerView{
+public class StickerTextView extends StickerView {
     private AutoResizeTextView tv_main;
     public StickerTextView(Context context) {
         super(context);

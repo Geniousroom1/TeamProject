@@ -26,7 +26,7 @@ public class EmoticonFragment extends Fragment {
     }
 
     // 인터페이스 멤버변수
-        private EmoticonListener listener;
+    private EmoticonListener listener;
 
 
     // 멤버변수 선언
@@ -38,9 +38,9 @@ public class EmoticonFragment extends Fragment {
     // 이모티콘 종류별 배열로 묶어서 상수 정의
     public static final int[][] IMAGE_EMOTICONS = {
             {// 0번째 탭에서 필요한 이미지 - 표정
-                    R.drawable.a1, R.drawable.a2, R.drawable.a3,R.drawable.a4, R.drawable.a5,
-                    R.drawable.a6, R.drawable.a7, R.drawable.a8,R.drawable.a9, R.drawable.a10,
-                    R.drawable.a11, R.drawable.a12,R.drawable.a13, R.drawable.a14, R.drawable.a15,
+                    R.drawable.a1, R.drawable.a2, R.drawable.a3, R.drawable.a4, R.drawable.a5,
+                    R.drawable.a6, R.drawable.a7, R.drawable.a8, R.drawable.a9, R.drawable.a10,
+                    R.drawable.a11, R.drawable.a12, R.drawable.a13, R.drawable.a14, R.drawable.a15,
                     R.drawable.a16, R.drawable.a17, R.drawable.a18, R.drawable.a19, R.drawable.a20,
                     R.drawable.b21, R.drawable.a22, R.drawable.a23, R.drawable.a24, R.drawable.a25,
                     R.drawable.a26, R.drawable.a27, R.drawable.a28, R.drawable.a29, R.drawable.a30,
@@ -165,7 +165,7 @@ public class EmoticonFragment extends Fragment {
 
         //  gridView.setAdapter(new EmoticonAdapter(getContext(), 0));
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-      //   @RequiresApi(api = Build.VERSION_CODES.N)
+            //   @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onItemClick(AdapterView<?> parent,
                                     View convertView,
