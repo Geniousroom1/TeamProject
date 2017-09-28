@@ -37,14 +37,16 @@
                     android:id="@+id/button1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorAccent"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:textColor="#ffffff"
                     android:text="미백" />
 
                 <Button
                     android:id="@+id/button2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorAccent"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:textColor="#ffffff"
                     android:text="뽀샤시" />
 
                 <Button
@@ -52,7 +54,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:backgroundTint="@color/colorAccent"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:textColor="#ffffff"
                     android:text="섹시" />
 
                 <Button
@@ -60,7 +63,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:backgroundTint="@color/colorAccent"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:textColor="#ffffff"
                     android:text="청순" />
 
                 <Button
@@ -68,7 +72,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:backgroundTint="@color/colorAccent"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:textColor="#ffffff"
                     android:text="자연" />
 
                 <Button
@@ -76,7 +81,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:backgroundTint="@color/colorAccent"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:textColor="#ffffff"
                     android:text="큐티" />
 
                 <Button
@@ -84,7 +90,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:backgroundTint="@color/colorAccent"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:textColor="#ffffff"
                     android:text="어둡게" />
 
                 <Button
@@ -92,7 +99,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:backgroundTint="@color/colorAccent"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:textColor="#ffffff"
                     android:text="따스함" />
             </LinearLayout>
         </LinearLayout>
