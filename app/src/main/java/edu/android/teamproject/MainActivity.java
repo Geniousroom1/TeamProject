@@ -17,6 +17,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -37,7 +38,9 @@ public class MainActivity extends AppCompatActivity
     private ImageView cameraIMG;
     private ArrayList<StickerImageView> imgList;
     public static ArrayList<StickerTextView> textList;
-    private FloatingActionButton floatingActionButton, floatingBtnEmoticon, floatingBtnFilter, floatingBtnCapture;
+    private FloatingActionButton floatingActionButton, floatingBtnEmoticon,
+                            floatingBtnFilter, floatingBtnCapture, floatingBtnText, floatingBtnCloseLayout;
+    private TextView tvEmoticon, tvFilter, tvScreenShot, tvTextEdit;
     private Animation mShowButton;
     private Animation mHideButton;
     private Animation mShowResButton;
@@ -61,10 +64,24 @@ public class MainActivity extends AppCompatActivity
         floatingBtnEmoticon = (FloatingActionButton) findViewById(R.id.floatingBtnEmoticon);
         floatingBtnFilter = (FloatingActionButton) findViewById(R.id.floatingBtnFilter);
         floatingBtnCapture = (FloatingActionButton) findViewById(R.id.floatingBtnCapture);
+        floatingBtnText = (FloatingActionButton) findViewById(R.id.floatingBtnText);
+        floatingBtnCloseLayout = (FloatingActionButton) findViewById(R.id.floatingBtnCloseLayout);
         floatingActionButton.setVisibility(View.VISIBLE);
         floatingBtnEmoticon.setVisibility(View.GONE);
         floatingBtnFilter.setVisibility(View.GONE);
         floatingBtnCapture.setVisibility(View.GONE);
+        floatingBtnText.setVisibility(View.GONE);
+        floatingBtnCloseLayout.setVisibility(View.GONE);
+        // 플로팅 버튼 옆에 띄울 텍스트 뷰를 찾음
+        tvEmoticon = (TextView) findViewById(R.id.tvEmoticon);
+        tvFilter = (TextView) findViewById(R.id.tvFilter);
+        tvScreenShot = (TextView) findViewById(R.id.tvScreenShot);
+        tvTextEdit = (TextView) findViewById(R.id.tvTextEdit);
+        tvEmoticon.setVisibility(View.GONE);
+        tvFilter.setVisibility(View.GONE);
+        tvScreenShot.setVisibility(View.GONE);
+        tvTextEdit.setVisibility(View.GONE);
+
         // 버튼에 넣을 애니메이션 찾음
         mShowButton = AnimationUtils.loadAnimation(this, R.anim.show_button);
         mHideButton = AnimationUtils.loadAnimation(this, R.anim.hide_button);
@@ -78,34 +95,15 @@ public class MainActivity extends AppCompatActivity
 
                 // 세 개의 플로팅 버튼이 GONE 상태이면, 버튼을 보여줌
                 if (floatingBtnEmoticon.getVisibility() == View.GONE &&
-                        floatingBtnFilter.getVisibility() == View.GONE) {
-
-                    floatingBtnEmoticon.setVisibility(View.VISIBLE);
-                    floatingBtnEmoticon.setClickable(true);
-                    floatingBtnFilter.setVisibility(View.VISIBLE);
-                    floatingBtnFilter.setClickable(true);
-                    floatingBtnCapture.setVisibility(View.VISIBLE);
-                    floatingBtnCapture.setClickable(true);
-
-                    floatingBtnEmoticon.startAnimation(mShowResButton);
-                    floatingBtnFilter.startAnimation(mShowResButton);
-                    floatingBtnCapture.startAnimation(mShowResButton);
-                    floatingActionButton.startAnimation(mShowButton);
-
+                        floatingBtnFilter.getVisibility() == View.GONE &&
+                        floatingBtnText.getVisibility() == View.GONE) {
+                    floatingBtnShow();
                     // 세 개의 플로팅 버튼이 VISIBLE 상태이면, 버튼을 GONE 상태로 변경
                 } else if (floatingBtnEmoticon.getVisibility() == View.VISIBLE &&
-                        floatingBtnFilter.getVisibility() == View.VISIBLE) {
-
-                    floatingBtnEmoticon.setVisibility(View.GONE);
-                    floatingBtnFilter.setVisibility(View.GONE);
-                    floatingBtnCapture.setVisibility(View.GONE);
-
-                    floatingBtnEmoticon.startAnimation(mHideResButton);
-                    floatingBtnFilter.startAnimation(mHideResButton);
-                    floatingBtnCapture.startAnimation(mHideResButton);
-                    floatingActionButton.startAnimation(mHideButton);
+                        floatingBtnFilter.getVisibility() == View.VISIBLE &&
+                        floatingBtnText.getVisibility() == View.VISIBLE) {
+                    floatingBtnGone();
                 }
-
 
             }
         });
@@ -153,18 +151,12 @@ public class MainActivity extends AppCompatActivity
             frameLayout.setVisibility(View.VISIBLE);
         }
 
-        // 나머지 플로팅 버튼 GONE
-        floatingBtnEmoticon.setVisibility(View.GONE);
-        floatingBtnEmoticon.setClickable(false);
-        floatingBtnFilter.setVisibility(View.GONE);
-        floatingBtnFilter.setClickable(false);
-        floatingBtnCapture.setVisibility(View.GONE);
-        floatingBtnCapture.setClickable(false);
+        // 플로팅 버튼 GONE상태로 변경
+        floatingBtnGone();
+        floatingBtnCloseLayout.setVisibility(View.VISIBLE);
+        floatingBtnCloseLayout.setClickable(true);
 
-        floatingBtnEmoticon.startAnimation(mHideResButton);
-        floatingBtnFilter.startAnimation(mHideResButton);
-        floatingBtnCapture.startAnimation(mHideResButton);
-        floatingActionButton.startAnimation(mHideButton);
+
     }//end showEmoticon
 
 
@@ -201,18 +193,10 @@ public class MainActivity extends AppCompatActivity
             frameLayout.setVisibility(View.VISIBLE);
         }
 
-        // 나머지 플로팅 버튼 GONE으로 변경
-        floatingBtnEmoticon.setVisibility(View.GONE);
-        floatingBtnEmoticon.setClickable(false);
-        floatingBtnFilter.setVisibility(View.GONE);
-        floatingBtnFilter.setClickable(false);
-        floatingBtnCapture.setVisibility(View.GONE);
-        floatingBtnCapture.setClickable(false);
-
-        floatingBtnEmoticon.startAnimation(mHideResButton);
-        floatingBtnFilter.startAnimation(mHideResButton);
-        floatingBtnCapture.startAnimation(mHideResButton);
-        floatingActionButton.startAnimation(mHideButton);
+        // 플로팅 버튼 GONE상태로 변경
+        floatingBtnGone();
+        floatingBtnCloseLayout.setVisibility(View.VISIBLE);
+        floatingBtnCloseLayout.setClickable(true);
     }//end showFilter
 
 
@@ -253,11 +237,13 @@ public class MainActivity extends AppCompatActivity
             String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
             ActivityCompat.requestPermissions(this, permissions, WRITE_PERMISTION);
         }
+        floatingBtnGone();
     }//end screenCapture
 
     public void textBtnClick(View view) {
         Intent textIntent = new Intent(this, TextsActivity.class);
         startActivity(textIntent);
+        floatingBtnGone();
     }//end textBtnClick
 
     public void hidden(View view) {
@@ -285,6 +271,66 @@ public class MainActivity extends AppCompatActivity
             }
     }
 
+    // 플로팅 버튼을 사라지게 하는 메소드
+    public void floatingBtnGone() {
+        // 나머지 플로팅 버튼 GONE으로 변경
+        floatingBtnEmoticon.setVisibility(View.GONE);
+        floatingBtnEmoticon.setClickable(false);
+        floatingBtnFilter.setVisibility(View.GONE);
+        floatingBtnFilter.setClickable(false);
+        floatingBtnCapture.setVisibility(View.GONE);
+        floatingBtnCapture.setClickable(false);
+        floatingBtnText.setVisibility(View.GONE);
+        floatingBtnText.setClickable(false);
+        tvEmoticon.setVisibility(View.GONE);
+        tvFilter.setVisibility(View.GONE);
+        tvScreenShot.setVisibility(View.GONE);
+        tvTextEdit.setVisibility(View.GONE);
+
+        floatingBtnEmoticon.startAnimation(mHideResButton);
+        floatingBtnFilter.startAnimation(mHideResButton);
+        floatingBtnCapture.startAnimation(mHideResButton);
+        floatingBtnText.startAnimation(mHideResButton);
+        tvEmoticon.startAnimation(mHideResButton);
+        tvFilter.startAnimation(mHideResButton);
+        tvScreenShot.startAnimation(mHideResButton);
+        tvTextEdit.startAnimation(mHideResButton);
+        floatingActionButton.startAnimation(mHideButton);
+    }
+
+    // 플로팅 버튼을 보여주는 메소드
+    public void floatingBtnShow() {
+        floatingBtnEmoticon.setVisibility(View.VISIBLE);
+        floatingBtnEmoticon.setClickable(true);
+        floatingBtnFilter.setVisibility(View.VISIBLE);
+        floatingBtnFilter.setClickable(true);
+        floatingBtnCapture.setVisibility(View.VISIBLE);
+        floatingBtnCapture.setClickable(true);
+        floatingBtnText.setVisibility(View.VISIBLE);
+        floatingBtnText.setClickable(true);
+        tvEmoticon.setVisibility(View.VISIBLE);
+        tvFilter.setVisibility(View.VISIBLE);
+        tvScreenShot.setVisibility(View.VISIBLE);
+        tvTextEdit.setVisibility(View.VISIBLE);
+
+
+        floatingBtnEmoticon.startAnimation(mShowResButton);
+        floatingBtnFilter.startAnimation(mShowResButton);
+        floatingBtnCapture.startAnimation(mShowResButton);
+        floatingBtnText.startAnimation(mShowResButton);
+        tvEmoticon.startAnimation(mShowResButton);
+        tvFilter.startAnimation(mShowResButton);
+        tvScreenShot.startAnimation(mShowResButton);
+        tvTextEdit.startAnimation(mShowResButton);
+        floatingActionButton.startAnimation(mShowButton);
+    }
+
+    public void closeLayout(View view) {
+        if (frameLayout != null) {
+            frameLayout.setVisibility(View.GONE);
+        }
+        floatingBtnCloseLayout.setVisibility(View.GONE);
+    }
 
 
     //TODO: 1. 필터 적용 기능 추가
