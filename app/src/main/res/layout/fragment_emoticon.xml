@@ -26,8 +26,8 @@
         android:id="@+id/tabs"
         app:tabMode="scrollable"
         app:tabGravity="fill"
-        app:tabBackground="@color/colorDark_gray3"
-        app:tabIndicatorColor="@color/colorDark_gray2"
+        app:tabBackground="@color/colorDark_gray2"
+        app:tabIndicatorColor="@color/colorDark_gray1"
 
 
         android:layout_width="wrap_content"

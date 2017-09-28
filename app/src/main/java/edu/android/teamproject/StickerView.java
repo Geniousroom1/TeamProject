@@ -178,6 +178,14 @@ implements View.OnTouchListener, View.OnClickListener{
                         StickerView.this.setY(StickerView.this.getY() + offsetY);
                         move_orgX = event.getRawX();
                         move_orgY = event.getRawY();
+                        if (toggle) {
+                            // 마우스를 떼도 이모티콘 테두리 사라지지 않음!
+                            iv_border.setVisibility(View.VISIBLE);
+                            iv_scale.setVisibility(View.VISIBLE);
+                            iv_delete.setVisibility(View.VISIBLE);
+                            iv_flip.setVisibility(View.VISIBLE);
+                            toggle = false;
+                        }
                         break;
                     case MotionEvent.ACTION_UP:
                         Log.v(TAG, "sticker view action up");
@@ -325,17 +333,20 @@ implements View.OnTouchListener, View.OnClickListener{
         return pos;
     }
 
-    public void setControlItemsHidden(boolean isHidden){
-        if(isHidden) {
+    public void setControlItemsHidden(boolean isHidden) {
+
+        if(isHidden) { // false이면,
             iv_border.setVisibility(View.INVISIBLE);
             iv_scale.setVisibility(View.INVISIBLE);
             iv_delete.setVisibility(View.INVISIBLE);
             iv_flip.setVisibility(View.INVISIBLE);
-        }else{
+
+        }else { // true이면
             iv_border.setVisibility(View.VISIBLE);
             iv_scale.setVisibility(View.VISIBLE);
             iv_delete.setVisibility(View.VISIBLE);
             iv_flip.setVisibility(View.VISIBLE);
+
         }
     }
 

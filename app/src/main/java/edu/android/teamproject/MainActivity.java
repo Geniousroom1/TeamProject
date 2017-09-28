@@ -246,6 +246,8 @@ public class MainActivity extends AppCompatActivity
         floatingBtnGone();
     }//end textBtnClick
 
+
+    // 이미지뷰 공간에 버튼 클릭 시 테두리 사라지는 기능
     public void hidden(View view) {
             for (int i = 0; i < imgList.size(); i++) {
                 StickerImageView siv = imgList.get(i);
