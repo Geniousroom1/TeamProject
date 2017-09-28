@@ -18,8 +18,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 
-public abstract class StickerView extends FrameLayout
-implements View.OnTouchListener, View.OnClickListener{
+public abstract class StickerView extends FrameLayout{
 
 
 

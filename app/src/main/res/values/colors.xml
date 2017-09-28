@@ -5,11 +5,13 @@
     <color name="colorAccent">#e2f7ea</color>
     <color name="colorDark_gray1">#90808080</color>
     <color name="colorDark_gray2">#50808080</color>
-    <color name="colorDark_gray3">#1C808080</color>
+    <color name="colorDark_gray3">#E8E8E8E8</color>
     <color name="colorDark_gray4">#F0F0F0</color>
     <color name="colorDark_gray5">#C0C0C0</color>
     <color name="colorBlueSky">#cce6ff</color>
     <color name="colorLightgreen">#99cc00</color>
+    <color name="colorPastelPink">#ffe4f6</color>
+    <color name="colorDeepDarkBlack">#000000</color>
+    <color name="colorBackground">#222222</color>
 
 </resources>
-

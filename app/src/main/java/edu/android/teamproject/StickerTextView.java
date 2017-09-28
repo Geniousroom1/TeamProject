@@ -75,13 +75,4 @@ public class StickerTextView extends StickerView {
         super.onScaling(scaleUp);
     }
 
-    @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-        return false;
-    }
-
-    @Override
-    public void onClick(View view) {
-
-    }
 }

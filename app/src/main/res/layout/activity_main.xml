@@ -5,18 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.android.teamproject.MainActivity">
+    tools:context="edu.android.teamproject.MainActivity"
+    android:background="#222222">
 
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -60,6 +55,7 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"
+        app:backgroundTint="@color/colorDark_gray2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -79,6 +75,7 @@
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingBtnEmoticon"
         android:onClick="showEmoticon"
+        app:backgroundTint="@color/colorDark_gray2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -98,6 +95,7 @@
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingBtnCapture"
         android:onClick="screenCapture"
+        app:backgroundTint="@color/colorDark_gray2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -116,6 +114,7 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingBtnFilter"
+        app:backgroundTint="@color/colorDark_gray2"
         android:onClick="showFilter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -136,6 +135,7 @@
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingBtnText"
         android:onClick="textBtnClick"
+        app:backgroundTint="@color/colorDark_gray2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -155,6 +155,7 @@
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingBtnCloseLayout"
         android:onClick="closeLayout"
+        app:backgroundTint="@color/colorDark_gray2"
         android:layout_width="28dp"
         android:layout_height="26dp"
         android:clickable="true"

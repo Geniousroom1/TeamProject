@@ -54,18 +54,4 @@ public class StickerImageView extends StickerView {
 
     public Bitmap getImageBitmap(){ return ((BitmapDrawable)this.iv_main.getDrawable()).getBitmap() ; }
 
-    @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-
-        return false;
-    }
-
-    public void hidden () {
-
-    }
-
-    @Override
-    public void onClick(View view) {
-
-    }
 }
