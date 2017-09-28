@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -208,7 +209,7 @@ public class EmoticonFragment extends Fragment {
         });
 
 
-        //  gridView.setAdapter(new EmoticonAdapter(getContext(), 0));
+        // gridView.setAdapter(new EmoticonAdapter(getContext(), 0));
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             //   @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -270,8 +271,8 @@ public class EmoticonFragment extends Fragment {
             if (convertView == null) {
                 // convertView에 암것도 없으면 넣어주고,
                 iv = new ImageView(context);
-                iv.setLayoutParams(new ViewGroup.LayoutParams(90, 90));
-                iv.setPadding(5, 10, 5, 10);
+                iv.setLayoutParams(new ViewGroup.LayoutParams(110, 110));
+                iv.setPadding(20, 15, 20, 15);
 
             } else {
                 // 내용이 있으면 화면에 그대로 보여주기
