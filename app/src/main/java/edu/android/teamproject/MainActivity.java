@@ -339,6 +339,6 @@ public class MainActivity extends AppCompatActivity
     //TODO: 4. 텍스트입력시 Text Font 및 color 를 변경할수 있게 하는 기능 추가
     //TODO: 5. 현재 activity_main.xml 에 있는 '텍스트 입력' 버튼을 플로팅 버튼형식으로 변경
     //TODO: 6. 기능 구현후 UI 보완
-
+//
 
 }
