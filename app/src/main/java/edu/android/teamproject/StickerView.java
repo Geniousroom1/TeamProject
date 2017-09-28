@@ -169,6 +169,13 @@ implements View.OnTouchListener, View.OnClickListener{
                         Log.v(TAG, "sticker view action down");
                         move_orgX = event.getRawX();
                         move_orgY = event.getRawY();
+                        if (toggle) {
+                            iv_border.setVisibility(View.VISIBLE);
+                            iv_scale.setVisibility(View.VISIBLE);
+                            iv_delete.setVisibility(View.VISIBLE);
+                            iv_flip.setVisibility(View.VISIBLE);
+                            toggle = false;
+                        }
                         break;
                     case MotionEvent.ACTION_MOVE:
                         Log.v(TAG, "sticker view action move");
