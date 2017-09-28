@@ -209,7 +209,7 @@ public class EmoticonFragment extends Fragment {
         });
 
 
-        // gridView.setAdapter(new EmoticonAdapter(getContext(), 0));
+        gridView.setAdapter(new EmoticonAdapter(getContext(), 0));
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             //   @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
