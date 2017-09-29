@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -12,6 +14,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -52,7 +55,17 @@ public class SecondActivity extends AppCompatActivity {
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inPreferredConfig = Bitmap.Config.RGB_565;
                 try {
-                    bit = MediaStore.Images.Media.getBitmap(getContentResolver(),imageUri);
+           //         bit = MediaStore.Images.Media.getBitmap(getContentResolver(),imageUri);
+                    bit = BitmapFactory.decodeFile(mCurrentPhotoPath);
+                    Log.i("edu.android", "mCurrentPhotoPath :: " + mCurrentPhotoPath);
+                    // 이미지를 상황에 맞게 회전시킴
+                    ExifInterface exif = new ExifInterface(mCurrentPhotoPath);
+                    int exifOrientation = exif.getAttributeInt(
+                            ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+                    int exifDegree = exifOrientationToDegrees(exifOrientation);
+                    Log.i("edu.android", "exifDegree" + exifDegree);
+                    bit = rotate(bit, exifDegree);
+
                     Intent nextI = new Intent(this, MainActivity.class);
                     startActivity(nextI);
                 } catch (Exception e) {
@@ -84,6 +97,52 @@ public class SecondActivity extends AppCompatActivity {
         }//end Gallery
 
     }//end onActivityResult
+
+
+    public static int exifOrientationToDegrees(int exifOrientation)
+    {
+        if(exifOrientation == ExifInterface.ORIENTATION_ROTATE_90)
+        {
+            return 90;
+        }
+        else if(exifOrientation == ExifInterface.ORIENTATION_ROTATE_180)
+        {
+            return 180;
+        }
+        else if(exifOrientation == ExifInterface.ORIENTATION_ROTATE_270)
+        {
+            return 270;
+        }
+        return 0;
+    }
+
+    public static Bitmap rotate(Bitmap bitmap, int degrees)
+    {
+        if(degrees != 0 && bitmap != null)
+        {
+            Matrix m = new Matrix();
+            m.setRotate(degrees, (float) bitmap.getWidth() / 2,
+                    (float) bitmap.getHeight() / 2);
+
+            try
+            {
+                Bitmap converted = Bitmap.createBitmap(bitmap, 0, 0,
+                        bitmap.getWidth(), bitmap.getHeight(), m, true);
+                if(bitmap != converted)
+                {
+                    bitmap.recycle();
+                    bitmap = converted;
+                }
+            }
+            catch(OutOfMemoryError ex)
+            {
+                // 메모리가 부족하여 회전을 시키지 못할 경우 그냥 원본을 반환합니다.
+            }
+        }
+        return bitmap;
+    }
+
+
 
     // 카메라로 찍어서 값을 넘겨줌
     public void startCamera(View view) {

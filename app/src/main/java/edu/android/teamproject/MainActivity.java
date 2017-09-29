@@ -4,7 +4,9 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.media.ExifInterface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
@@ -13,6 +15,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -110,6 +113,25 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+//               try {
+//            SecondActivity.bit = BitmapFactory.decodeFile(SecondActivity.mCurrentPhotoPath);
+//            // 이미지를 상황에 맞게 회전시킴
+//            ExifInterface exif = new ExifInterface(SecondActivity.mCurrentPhotoPath);
+//            int exifOrientation = exif.getAttributeInt(
+//                    ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+//            int exifDegree = SecondActivity.exifOrientationToDegrees(exifOrientation);
+//            Log.i("edu.android", "exifDegree" + exifDegree);
+//            SecondActivity.bit = SecondActivity.rotate(SecondActivity.bit, exifDegree);
+//        }catch (Exception e){
+//
+//        }
+//        cameraIMG = (ImageView) findViewById(R.id.cameraView);
+//        cameraIMG.setImageBitmap(SecondActivity.bit);
+
+
+
+
+
     } // end onCreate
 
 

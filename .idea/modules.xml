@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/291515camera.iml" filepath="$PROJECT_DIR$/291515camera.iml" />
       <module fileurl="file://$PROJECT_DIR$/And57_Git_11.iml" filepath="$PROJECT_DIR$/And57_Git_11.iml" />
       <module fileurl="file://$PROJECT_DIR$/TeamProject.iml" filepath="$PROJECT_DIR$/TeamProject.iml" />
       <module fileurl="file://$PROJECT_DIR$/TeamProject1.iml" filepath="$PROJECT_DIR$/TeamProject1.iml" />
@@ -31,6 +32,7 @@
       <module fileurl="file://$PROJECT_DIR$/TeamProject789.iml" filepath="$PROJECT_DIR$/TeamProject789.iml" />
       <module fileurl="file://$PROJECT_DIR$/TeamProject7890.iml" filepath="$PROJECT_DIR$/TeamProject7890.iml" />
       <module fileurl="file://$PROJECT_DIR$/TeamProject9.iml" filepath="$PROJECT_DIR$/TeamProject9.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
