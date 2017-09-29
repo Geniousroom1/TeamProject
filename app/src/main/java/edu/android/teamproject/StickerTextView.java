@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 
 import edu.android.teamproject.util.AutoResizeTextView;
 
+import static edu.android.teamproject.TextsActivity.color1;
+import static edu.android.teamproject.TextsActivity.font1;
+
 
 /**
  * Created by cheungchingai on 6/15/15.
@@ -36,8 +39,9 @@ public class StickerTextView extends StickerView {
 
         tv_main = new AutoResizeTextView(getContext());
         //tv_main.setTextSize(22);
-        tv_main.setTextColor(Color.WHITE); //TODO : 글자 컬러 바꾸는데 쓸수있음
+        tv_main.setTextColor(color1); //TODO : 글자 컬러 바꾸는데 쓸수있음
         tv_main.setGravity(Gravity.CENTER);
+        tv_main.setTypeface(font1);
         tv_main.setTextSize(400);
         tv_main.setShadowLayer(4, 0, 0, Color.BLACK);
         tv_main.setMaxLines(1);

@@ -1,6 +1,7 @@
 package edu.android.teamproject;
 
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ public class TextsActivity extends AppCompatActivity {
     private EditText text;
     public static StickerTextView tv_sticker;
     public static Typeface font1;
+    public static int color1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +96,54 @@ public class TextsActivity extends AppCompatActivity {
 
 
 
+
+    }
+
+    public void colorbtn(View view) {
+        final CharSequence font[] = new CharSequence[]{"빨강","파랑","초록","노랑","회색"};
+
+        final AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+
+        builder1.setItems(font, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                switch (i)
+
+                {
+
+                    case 0:
+                        color1 = Color.RED;
+                        text.setTextColor(color1);
+
+                        break;
+
+                    case 1:
+                        color1 = Color.BLUE;
+                        text.setTextColor(color1);
+
+
+                        break;
+                    case 2:
+                        color1 = Color.GREEN;
+                        text.setTextColor(color1);
+
+                        break;
+                    case 3:
+                        color1 = Color.YELLOW;
+                        text.setTextColor(color1);
+
+                        break;
+                    case 4:
+
+                        color1 = Color.DKGRAY;
+                        text.setTextColor(color1);
+                        break;
+                }
+                dialogInterface.dismiss();
+            }
+
+        });
+        builder1.show();
 
     }
 }
