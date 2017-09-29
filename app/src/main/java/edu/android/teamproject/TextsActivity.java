@@ -24,6 +24,10 @@ public class TextsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_texts);
         text = (EditText) findViewById(R.id.editText);
+        color1 = Color.WHITE;
+        font1 = Typeface.createFromAsset(getAssets(),"손글씨펜.ttf");
+        text.setTypeface(font1);
+        text.setTextColor(color1);
     }
 
     public void btn_cancel(View view) {
@@ -42,8 +46,6 @@ public class TextsActivity extends AppCompatActivity {
     }
 
     public void font(View view) {
-
-
 
         final CharSequence font[] = new CharSequence[]{"고딕","손글씨 펜","CulDeSac","블럭","첫소리 강조"};
 
@@ -100,7 +102,7 @@ public class TextsActivity extends AppCompatActivity {
     }
 
     public void colorbtn(View view) {
-        final CharSequence font[] = new CharSequence[]{"빨강","파랑","초록","노랑","회색"};
+        final CharSequence font[] = new CharSequence[]{"빨강","파랑","초록","노랑","회색","검정","흰색"};
 
         final AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
 
@@ -136,6 +138,14 @@ public class TextsActivity extends AppCompatActivity {
                     case 4:
 
                         color1 = Color.DKGRAY;
+                        text.setTextColor(color1);
+                        break;
+                    case 5:
+                        color1 = Color.BLACK;
+                        text.setTextColor(color1);
+                        break;
+                    case 6:
+                        color1 = Color.WHITE;
                         text.setTextColor(color1);
                         break;
                 }

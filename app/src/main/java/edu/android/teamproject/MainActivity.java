@@ -270,7 +270,6 @@ public class MainActivity extends AppCompatActivity
     }//end screenCapture
 
     public void textBtnClick(View view) {
-        font1 = Typeface.createFromAsset(getAssets(),"기본폰트.ttf");
         Intent textIntent = new Intent(this, TextsActivity.class);
         startActivity(textIntent);
         floatingBtnGone();
