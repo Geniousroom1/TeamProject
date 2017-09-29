@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
@@ -26,6 +27,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import static edu.android.teamproject.TextsActivity.font1;
 
 public class MainActivity extends AppCompatActivity
         implements EmoticonFragment.EmoticonListener, FilterFragment.FilterListener
@@ -241,6 +244,7 @@ public class MainActivity extends AppCompatActivity
     }//end screenCapture
 
     public void textBtnClick(View view) {
+        font1 = Typeface.createFromAsset(getAssets(),"기본폰트.ttf");
         Intent textIntent = new Intent(this, TextsActivity.class);
         startActivity(textIntent);
         floatingBtnGone();

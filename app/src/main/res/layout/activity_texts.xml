@@ -47,4 +47,19 @@
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/editText" />
+
+    <Button
+        android:id="@+id/button"
+        android:onClick="font"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="폰트"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/editText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintRight_toLeftOf="@+id/button_entertext"
+        android:layout_marginRight="8dp"
+        app:layout_constraintLeft_toRightOf="@+id/button_cancel"
+        android:layout_marginLeft="8dp" />
 </android.support.constraint.ConstraintLayout>
