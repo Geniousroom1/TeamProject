@@ -12,6 +12,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class TextsActivity extends AppCompatActivity {
+    //TODO : 해당 액티비티를 새로운창에 띄우는게아닌 그림을 보며 텍스트를 수정할수있도록 생성
     public static String textActivity_Text;
     public static boolean textCancel;
     private EditText text;

@@ -6,15 +6,19 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.Typeface;
 import android.media.ExifInterface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -42,67 +46,85 @@ public class MainActivity extends AppCompatActivity
     private FragmentManager fm;
     private Fragment fragment;
     public static FrameLayout inflatedLayout;
-    private ImageView cameraIMG;
+    public ImageView cameraIMG;
     private ArrayList<StickerImageView> imgList;
     public static ArrayList<StickerTextView> textList;
     private FloatingActionButton floatingActionButton, floatingBtnEmoticon,
-                            floatingBtnFilter, floatingBtnCapture, floatingBtnText, floatingBtnCloseLayout;
-    private TextView tvEmoticon, tvFilter, tvScreenShot, tvTextEdit;
+                            floatingBtnFilter, floatingBtnText, floatingBtnCloseLayout;
+    private TextView tvEmoticon, tvFilter, tvTextEdit;
     private Animation mShowButton;
     private Animation mHideButton;
     private Animation mShowResButton;
     private Animation mHideResButton;
 
+
+    private String mCurrentPhotoPath;
+    public static final int REQ_CODE_CAMERA = 1000; // 카메라 키값
+    public static final int PICK_FROM_GALLERY = 1; // 갤러리 키값
+    public static final int PERMISTION_GALLERY = 2;
+    public static final int PERMISTION_CAMERA = 3;
+    public static final int PERMISTION_WRITE = 4;
+
+    private Uri imageUri;
+    public Bitmap bit = null; // 그림을 저장할 공간.
+
+    private String filePath;
+    private String folderName = "TeamProject";// 폴더명
+    private String fileName = "Image"; // 파일명
+
+    private ImageView galleryimgBtn, cameraimgBtn, backgroundimg, menubarOpener, menubarCloser, saveimgBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
         setContentView(R.layout.activity_main);
+        galleryimgBtn = (ImageView) findViewById(R.id.galleryimgBtn);
+        cameraimgBtn = (ImageView) findViewById(R.id.cameraimgBtn);
+        backgroundimg = (ImageView) findViewById(R.id.backgroundImg);
+        menubarCloser = (ImageView) findViewById(R.id.meneBarCloser);
+        menubarOpener = (ImageView) findViewById(R.id.menuBarOpener);
+        saveimgBtn = (ImageView) findViewById(R.id.saveimgBtn);
+        galleryimgBtn.setVisibility(View.INVISIBLE);
+        cameraimgBtn.setVisibility(View.INVISIBLE);
+        backgroundimg.setVisibility(View.INVISIBLE);
+        saveimgBtn.setVisibility(View.INVISIBLE);
+        menubarCloser.setVisibility(View.INVISIBLE);
         frameLayout = (FrameLayout) findViewById(R.id.container);
         frameLayout.setVisibility(View.GONE);
         mainLayout = (FrameLayout) findViewById(R.id.frameLayout);
         inflatedLayout = (FrameLayout) findViewById(R.id.dummydata);
         cameraIMG = (ImageView) findViewById(R.id.cameraView);
-        cameraIMG.setImageBitmap(SecondActivity.bit);
         imgList = new ArrayList<StickerImageView>();
         textList = new ArrayList<StickerTextView>();
-
+        cameraIMG.setImageBitmap(bit);
         // 플로팅 버튼 찾음
         floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         floatingBtnEmoticon = (FloatingActionButton) findViewById(R.id.floatingBtnEmoticon);
         floatingBtnFilter = (FloatingActionButton) findViewById(R.id.floatingBtnFilter);
-        floatingBtnCapture = (FloatingActionButton) findViewById(R.id.floatingBtnCapture);
         floatingBtnText = (FloatingActionButton) findViewById(R.id.floatingBtnText);
         floatingBtnCloseLayout = (FloatingActionButton) findViewById(R.id.floatingBtnCloseLayout);
         floatingActionButton.setVisibility(View.VISIBLE);
         floatingBtnEmoticon.setVisibility(View.GONE);
         floatingBtnFilter.setVisibility(View.GONE);
-        floatingBtnCapture.setVisibility(View.GONE);
         floatingBtnText.setVisibility(View.GONE);
         floatingBtnCloseLayout.setVisibility(View.GONE);
         // 플로팅 버튼 옆에 띄울 텍스트 뷰를 찾음
         tvEmoticon = (TextView) findViewById(R.id.tvEmoticon);
         tvFilter = (TextView) findViewById(R.id.tvFilter);
-        tvScreenShot = (TextView) findViewById(R.id.tvScreenShot);
         tvTextEdit = (TextView) findViewById(R.id.tvTextEdit);
         tvEmoticon.setVisibility(View.GONE);
         tvFilter.setVisibility(View.GONE);
-        tvScreenShot.setVisibility(View.GONE);
         tvTextEdit.setVisibility(View.GONE);
-
         // 버튼에 넣을 애니메이션 찾음
         mShowButton = AnimationUtils.loadAnimation(this, R.anim.show_button);
         mHideButton = AnimationUtils.loadAnimation(this, R.anim.hide_button);
         mShowResButton = AnimationUtils.loadAnimation(this, R.anim.show_res_button);
         mHideResButton = AnimationUtils.loadAnimation(this, R.anim.hide_res_button);
-
         // +플로팅 버튼 눌렀을 때
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 // 세 개의 플로팅 버튼이 GONE 상태이면, 버튼을 보여줌
                 if (floatingBtnEmoticon.getVisibility() == View.GONE &&
                         floatingBtnFilter.getVisibility() == View.GONE &&
@@ -114,28 +136,8 @@ public class MainActivity extends AppCompatActivity
                         floatingBtnText.getVisibility() == View.VISIBLE) {
                     floatingBtnGone();
                 }
-
             }
         });
-//               try {
-//            SecondActivity.bit = BitmapFactory.decodeFile(SecondActivity.mCurrentPhotoPath);
-//            // 이미지를 상황에 맞게 회전시킴
-//            ExifInterface exif = new ExifInterface(SecondActivity.mCurrentPhotoPath);
-//            int exifOrientation = exif.getAttributeInt(
-//                    ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-//            int exifDegree = SecondActivity.exifOrientationToDegrees(exifOrientation);
-//            Log.i("edu.android", "exifDegree" + exifDegree);
-//            SecondActivity.bit = SecondActivity.rotate(SecondActivity.bit, exifDegree);
-//        }catch (Exception e){
-//
-//        }
-//        cameraIMG = (ImageView) findViewById(R.id.cameraView);
-//        cameraIMG.setImageBitmap(SecondActivity.bit);
-
-
-
-
-
     } // end onCreate
 
 
@@ -252,7 +254,6 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(getApplicationContext(), "Captured!", Toast.LENGTH_LONG).show();
                 DMediaScanner scanner = new DMediaScanner(this);
                 scanner.startScan(Environment.getExternalStorageDirectory().toString()+"/TeamProject/"+filename+".jpeg");
-                finish();
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
@@ -309,22 +310,17 @@ public class MainActivity extends AppCompatActivity
         floatingBtnEmoticon.setClickable(false);
         floatingBtnFilter.setVisibility(View.GONE);
         floatingBtnFilter.setClickable(false);
-        floatingBtnCapture.setVisibility(View.GONE);
-        floatingBtnCapture.setClickable(false);
         floatingBtnText.setVisibility(View.GONE);
         floatingBtnText.setClickable(false);
         tvEmoticon.setVisibility(View.GONE);
         tvFilter.setVisibility(View.GONE);
-        tvScreenShot.setVisibility(View.GONE);
         tvTextEdit.setVisibility(View.GONE);
 
         floatingBtnEmoticon.startAnimation(mHideResButton);
         floatingBtnFilter.startAnimation(mHideResButton);
-        floatingBtnCapture.startAnimation(mHideResButton);
         floatingBtnText.startAnimation(mHideResButton);
         tvEmoticon.startAnimation(mHideResButton);
         tvFilter.startAnimation(mHideResButton);
-        tvScreenShot.startAnimation(mHideResButton);
         tvTextEdit.startAnimation(mHideResButton);
         floatingActionButton.startAnimation(mHideButton);
     }
@@ -335,23 +331,18 @@ public class MainActivity extends AppCompatActivity
         floatingBtnEmoticon.setClickable(true);
         floatingBtnFilter.setVisibility(View.VISIBLE);
         floatingBtnFilter.setClickable(true);
-        floatingBtnCapture.setVisibility(View.VISIBLE);
-        floatingBtnCapture.setClickable(true);
         floatingBtnText.setVisibility(View.VISIBLE);
         floatingBtnText.setClickable(true);
         tvEmoticon.setVisibility(View.VISIBLE);
         tvFilter.setVisibility(View.VISIBLE);
-        tvScreenShot.setVisibility(View.VISIBLE);
         tvTextEdit.setVisibility(View.VISIBLE);
 
 
         floatingBtnEmoticon.startAnimation(mShowResButton);
         floatingBtnFilter.startAnimation(mShowResButton);
-        floatingBtnCapture.startAnimation(mShowResButton);
         floatingBtnText.startAnimation(mShowResButton);
         tvEmoticon.startAnimation(mShowResButton);
         tvFilter.startAnimation(mShowResButton);
-        tvScreenShot.startAnimation(mShowResButton);
         tvTextEdit.startAnimation(mShowResButton);
         floatingActionButton.startAnimation(mShowButton);
     }
@@ -363,13 +354,177 @@ public class MainActivity extends AppCompatActivity
         floatingBtnCloseLayout.setVisibility(View.GONE);
     }
 
-
-    //TODO: 1. 필터 적용 기능 추가
-    //TODO: 2. 온터치시 안보이는게아닌 클릭시 안보이게 하는 기능으로 변환
-    //TODO: 3. 카메라 가로/세로 를 구분하는 기능 필요.
-    //TODO: 4. 텍스트입력시 Text Font 및 color 를 변경할수 있게 하는 기능 추가
-    //TODO: 5. 현재 activity_main.xml 에 있는 '텍스트 입력' 버튼을 플로팅 버튼형식으로 변경
-    //TODO: 6. 기능 구현후 UI 보완
 //
 
+    // startActivityForResult 할때의 기능 override
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode== REQ_CODE_CAMERA && resultCode == RESULT_OK) {
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inPreferredConfig = Bitmap.Config.RGB_565;
+            try {
+                //         bit = MediaStore.Images.Media.getBitmap(getContentResolver(),imageUri);
+                bit = BitmapFactory.decodeFile(mCurrentPhotoPath);
+                Log.i("edu.android", "mCurrentPhotoPath :: " + mCurrentPhotoPath);
+                // 이미지를 상황에 맞게 회전시킴
+                ExifInterface exif = new ExifInterface(mCurrentPhotoPath);
+                int exifOrientation = exif.getAttributeInt(
+                        ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+                int exifDegree = exifOrientationToDegrees(exifOrientation);
+                Log.i("edu.android", "exifDegree" + exifDegree);
+                bit = rotate(bit, exifDegree);
+                cameraIMG.setImageBitmap(bit);
+//                Intent nextI = new Intent(this, MainActivity.class);
+//                startActivity(nextI);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(this, "취소", Toast.LENGTH_SHORT).show();
+            }
+
+
+        }else{
+
+        }//end Camera
+
+        if (requestCode== PICK_FROM_GALLERY && resultCode == RESULT_OK ) {
+            Uri uri = data.getData();
+            if(uri!=null) {
+                try {
+                    bit = MediaStore.Images.Media.getBitmap(getContentResolver(),uri);
+                    cameraIMG.setImageBitmap(bit);
+//                    Intent nextI = new Intent(this, MainActivity.class);
+//                    startActivity(nextI);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(this, "에러 발생", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, "취소", Toast.LENGTH_SHORT).show();
+            }
+        }else{
+
+        }//end Gallery
+
+    }//end onActivityResult
+
+
+    public static int exifOrientationToDegrees(int exifOrientation)
+    {
+        if(exifOrientation == ExifInterface.ORIENTATION_ROTATE_90)
+        {
+            return 90;
+        }
+        else if(exifOrientation == ExifInterface.ORIENTATION_ROTATE_180)
+        {
+            return 180;
+        }
+        else if(exifOrientation == ExifInterface.ORIENTATION_ROTATE_270)
+        {
+            return 270;
+        }
+        return 0;
+    }
+
+    public static Bitmap rotate(Bitmap bitmap, int degrees)
+    {
+        if(degrees != 0 && bitmap != null)
+        {
+            Matrix m = new Matrix();
+            m.setRotate(degrees, (float) bitmap.getWidth() / 2,
+                    (float) bitmap.getHeight() / 2);
+
+            try
+            {
+                Bitmap converted = Bitmap.createBitmap(bitmap, 0, 0,
+                        bitmap.getWidth(), bitmap.getHeight(), m, true);
+                if(bitmap != converted)
+                {
+                    bitmap.recycle();
+                    bitmap = converted;
+                }
+            }
+            catch(OutOfMemoryError ex)
+            {
+                // 메모리가 부족하여 회전을 시키지 못할 경우 그냥 원본을 반환합니다.
+            }
+        }
+        return bitmap;
+    }
+
+
+
+    // 카메라로 찍어서 값을 넘겨줌
+    public void startCamera(View view) {
+        int check = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+        int check2 = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if(check == PackageManager.PERMISSION_GRANTED&& check2== PackageManager.PERMISSION_GRANTED){
+            try {
+                File photoFile = null;
+                photoFile = createImageFile();
+                imageUri = FileProvider.getUriForFile(this,"edu.android.teamproject",photoFile);
+                Intent intent = new Intent();
+                intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                startActivityForResult(intent, REQ_CODE_CAMERA);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }else {
+            String[] permissions = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            ActivityCompat.requestPermissions(this, permissions, PERMISTION_CAMERA);
+            ActivityCompat.requestPermissions(this, permissions, PERMISTION_WRITE);
+        }
+
+    }//end startCamera
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "SCR_" + timeStamp;
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.getAbsolutePath();
+        return image;
+    }//end createImageFile
+
+    public void startGallery(View view) {
+        int check = ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+
+        if (check == PackageManager.PERMISSION_GRANTED) {
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT); // 갤러리 인텐트 생성
+            intent.setType("image/*");
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_FROM_GALLERY); //갤러리 인텐트 실행
+        } else {
+            String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
+            ActivityCompat.requestPermissions(this, permissions, PERMISTION_GALLERY);
+        }
+    }
+
+    public void menuClose(View view) {
+        galleryimgBtn.setVisibility(View.INVISIBLE);
+        cameraimgBtn.setVisibility(View.INVISIBLE);
+        backgroundimg.setVisibility(View.INVISIBLE);
+        menubarCloser.setVisibility(View.INVISIBLE);
+        saveimgBtn.setVisibility(View.INVISIBLE);
+        menubarOpener.setVisibility(View.VISIBLE);
+    }
+
+    public void menuOpen(View view) {
+        galleryimgBtn.setVisibility(View.VISIBLE);
+        cameraimgBtn.setVisibility(View.VISIBLE);
+        backgroundimg.setVisibility(View.VISIBLE);
+        menubarCloser.setVisibility(View.VISIBLE);
+        saveimgBtn.setVisibility(View.VISIBLE);
+        menubarOpener.setVisibility(View.INVISIBLE);
+    }
 }
