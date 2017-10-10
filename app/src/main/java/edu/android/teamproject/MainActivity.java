@@ -254,6 +254,9 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(getApplicationContext(), "Captured!", Toast.LENGTH_LONG).show();
                 DMediaScanner scanner = new DMediaScanner(this);
                 scanner.startScan(Environment.getExternalStorageDirectory().toString()+"/TeamProject/"+filename+".jpeg");
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                finish();
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
