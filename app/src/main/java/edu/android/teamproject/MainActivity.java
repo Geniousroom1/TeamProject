@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity
     public static ArrayList<StickerTextView> textList;
     private FloatingActionButton floatingActionButton, floatingBtnEmoticon,
                             floatingBtnFilter, floatingBtnText, floatingBtnCloseLayout;
-    private TextView tvEmoticon, tvFilter, tvTextEdit;
     private Animation mShowButton;
     private Animation mHideButton;
     private Animation mShowResButton;
@@ -107,13 +106,6 @@ public class MainActivity extends AppCompatActivity
         floatingBtnFilter.setVisibility(View.GONE);
         floatingBtnText.setVisibility(View.GONE);
         floatingBtnCloseLayout.setVisibility(View.GONE);
-        // 플로팅 버튼 옆에 띄울 텍스트 뷰를 찾음
-        tvEmoticon = (TextView) findViewById(R.id.tvEmoticon);
-        tvFilter = (TextView) findViewById(R.id.tvFilter);
-        tvTextEdit = (TextView) findViewById(R.id.tvTextEdit);
-        tvEmoticon.setVisibility(View.GONE);
-        tvFilter.setVisibility(View.GONE);
-        tvTextEdit.setVisibility(View.GONE);
         // 버튼에 넣을 애니메이션 찾음
         mShowButton = AnimationUtils.loadAnimation(this, R.anim.show_button);
         mHideButton = AnimationUtils.loadAnimation(this, R.anim.hide_button);
@@ -435,16 +427,10 @@ public class MainActivity extends AppCompatActivity
         floatingBtnFilter.setClickable(false);
         floatingBtnText.setVisibility(View.GONE);
         floatingBtnText.setClickable(false);
-        tvEmoticon.setVisibility(View.GONE);
-        tvFilter.setVisibility(View.GONE);
-        tvTextEdit.setVisibility(View.GONE);
 
         floatingBtnEmoticon.startAnimation(mHideResButton);
         floatingBtnFilter.startAnimation(mHideResButton);
         floatingBtnText.startAnimation(mHideResButton);
-        tvEmoticon.startAnimation(mHideResButton);
-        tvFilter.startAnimation(mHideResButton);
-        tvTextEdit.startAnimation(mHideResButton);
         floatingActionButton.startAnimation(mHideButton);
     }
 
@@ -456,17 +442,11 @@ public class MainActivity extends AppCompatActivity
         floatingBtnFilter.setClickable(true);
         floatingBtnText.setVisibility(View.VISIBLE);
         floatingBtnText.setClickable(true);
-        tvEmoticon.setVisibility(View.VISIBLE);
-        tvFilter.setVisibility(View.VISIBLE);
-        tvTextEdit.setVisibility(View.VISIBLE);
 
 
         floatingBtnEmoticon.startAnimation(mShowResButton);
         floatingBtnFilter.startAnimation(mShowResButton);
         floatingBtnText.startAnimation(mShowResButton);
-        tvEmoticon.startAnimation(mShowResButton);
-        tvFilter.startAnimation(mShowResButton);
-        tvTextEdit.startAnimation(mShowResButton);
         floatingActionButton.startAnimation(mShowButton);
     }
 
