@@ -4,6 +4,7 @@ package edu.android.teamproject;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,8 +26,13 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
 
 
     private int[] buttonIds = {
-            R.id.button1, R.id.button2, R.id.button3, R.id.button4,
-            R.id.button5, R.id.button6, R.id.button7, R.id.button8,
+            R.id.filter_sunset, R.id.filter_forest, R.id.filter_sea, R.id.filter_bright,
+            R.id.filter_more_bright, R.id.filter_neon, R.id.filter_neon2, R.id.filter_neon3,
+            R.id.filter_paint, R.id.filter_paint2, R.id.filter_black, R.id.filter_black2,
+            R.id.filter_black3, R.id.filter_black4, R.id.filter_black5, R.id.filter_sketch,
+            R.id.filter_sketch2, R.id.filter_sketch3, R.id.filter_mosaic, R.id.filter_blur,
+            R.id.filter_border, R.id.filter_romo, R.id.filter_white, R.id.filter_natural,
+            R.id.filter_blue, R.id.filter_yellow, R.id.filter_green, R.id.filter_rainbow,
     };
 
 
@@ -70,16 +76,9 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-
         int btnId = view.getId();
         // TODO : 필터 버튼 클릭 시마다 할 일
-        switch (btnId) {
-            case R.id.button1:
-
-
-
-
-        }
+       listener.onButtonClicked(btnId);
 
     }
 

@@ -34,74 +34,256 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/button1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorDeepDarkBlack"
-                    android:textColor="#ffffff"
-                    android:text="미백" />
-
-                <Button
-                    android:id="@+id/button2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorDeepDarkBlack"
-                    android:textColor="#ffffff"
-                    android:text="뽀샤시" />
-
-                <Button
-                    android:id="@+id/button3"
+                    android:id="@+id/filter_sunset"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:backgroundTint="@color/colorDeepDarkBlack"
                     android:textColor="#ffffff"
-                    android:text="섹시" />
+                    android:text="석양" />
 
                 <Button
-                    android:id="@+id/button4"
+                    android:id="@+id/filter_forest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:backgroundTint="@color/colorDeepDarkBlack"
                     android:textColor="#ffffff"
-                    android:text="청순" />
+                    android:text="숲" />
 
                 <Button
-                    android:id="@+id/button5"
+                    android:id="@+id/filter_sea"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:backgroundTint="@color/colorDeepDarkBlack"
                     android:textColor="#ffffff"
-                    android:text="자연" />
+                    android:text="바다" />
 
                 <Button
-                    android:id="@+id/button6"
+                    android:id="@+id/filter_bright"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:backgroundTint="@color/colorDeepDarkBlack"
                     android:textColor="#ffffff"
-                    android:text="큐티" />
+                    android:text="밝게" />
 
                 <Button
-                    android:id="@+id/button7"
+                    android:id="@+id/filter_more_bright"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:text="더 밝게"
+                    android:textColor="#ffffff" />
+
+                <Button
+                    android:id="@+id/filter_neon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:backgroundTint="@color/colorDeepDarkBlack"
                     android:textColor="#ffffff"
-                    android:text="어둡게" />
+                    android:text="네온사인" />
 
                 <Button
-                    android:id="@+id/button8"
+                    android:id="@+id/filter_neon2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:backgroundTint="@color/colorDeepDarkBlack"
                     android:textColor="#ffffff"
-                    android:text="따스함" />
+                    android:text="네온사인2" />
+
+                <Button
+                    android:id="@+id/filter_neon3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:text="네온사인3"
+                    android:textColor="#ffffff" />
+
+                <Button
+                    android:id="@+id/filter_paint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:text="그림판"
+                    android:textColor="#ffffff" />
+
+                <Button
+                    android:id="@+id/filter_paint2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:text="그림판2"
+                    android:textColor="#ffffff" />
+
+                <Button
+                    android:id="@+id/filter_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:text="흑백"
+                    android:textColor="#ffffff" />
+
+                <Button
+                    android:id="@+id/filter_black2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:text="흑백2"
+                    android:textColor="#ffffff" />
+
+                <Button
+                    android:id="@+id/filter_black3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:text="흑백3"
+                    android:textColor="#ffffff" />
+
+                <Button
+                    android:id="@+id/filter_black4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:text="흑백4"
+                    android:textColor="#ffffff" />
+
+                <Button
+                    android:id="@+id/filter_black5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:text="흑백5"
+                    android:textColor="#ffffff" />
+
+                <Button
+                    android:id="@+id/filter_sketch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:textColor="#ffffff"
+                    android:text="스케치" />
+
+                <Button
+                    android:id="@+id/filter_sketch2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:text="스케치2"
+                    android:textColor="#ffffff" />
+
+                <Button
+                    android:id="@+id/filter_sketch3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:text="스케치3"
+                    android:textColor="#ffffff" />
+
+                <Button
+                    android:id="@+id/filter_mosaic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:text="모자이크"
+                    android:textColor="#ffffff" />
+
+                <Button
+                    android:id="@+id/filter_blur"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:text="블러"
+                    android:textColor="#ffffff" />
+
+                <Button
+                    android:id="@+id/filter_border"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:text="테두리"
+                    android:textColor="#ffffff" />
+
+                <Button
+                    android:id="@+id/filter_romo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:text="로모"
+                    android:textColor="#ffffff" />
+
+                <Button
+                    android:id="@+id/filter_white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:text="화이트"
+                    android:textColor="#ffffff" />
+
+                <Button
+                    android:id="@+id/filter_natural"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:text="네츄럴"
+                    android:textColor="#ffffff" />
+
+                <Button
+                    android:id="@+id/filter_blue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:text="블루"
+                    android:textColor="#ffffff" />
+
+                <Button
+                    android:id="@+id/filter_yellow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:text="옐로우"
+                    android:textColor="#ffffff" />
+
+                <Button
+                    android:id="@+id/filter_green"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:text="그린"
+                    android:textColor="#ffffff" />
+
+                <Button
+                    android:id="@+id/filter_rainbow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:text="무지개"
+                    android:textColor="#ffffff" />
+
             </LinearLayout>
         </LinearLayout>
     </HorizontalScrollView>

@@ -6,8 +6,8 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
-import android.graphics.Typeface;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -35,8 +35,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
-import static edu.android.teamproject.TextsActivity.font1;
 
 public class MainActivity extends AppCompatActivity
         implements EmoticonFragment.EmoticonListener, FilterFragment.FilterListener
@@ -190,6 +188,21 @@ public class MainActivity extends AppCompatActivity
 
     }//end showEmoticon
 
+    // 뒤로가기 버튼 클릭 시
+    @Override
+    public void onBackPressed() {
+        if (frameLayout.getVisibility() == View.VISIBLE) {
+            frameLayout.setVisibility(View.GONE);
+            floatingBtnCloseLayout.setVisibility(View.GONE);
+            floatingBtnCloseLayout.setClickable(false);
+        } else if(floatingBtnEmoticon.getVisibility() == View.VISIBLE &&
+                floatingBtnFilter.getVisibility() == View.VISIBLE &&
+                floatingBtnText.getVisibility() == View.VISIBLE) {
+            floatingBtnGone();
+        } else {
+            super.onBackPressed();
+        }
+    }
 
     // 필터 콜백리스너 메소드
     @Override
@@ -197,7 +210,106 @@ public class MainActivity extends AppCompatActivity
         FragmentManager fm = getSupportFragmentManager();
         FilterFragment fragment = (FilterFragment) fm.findFragmentById(R.id.container);
         fragment.getArguments();
-    }//end onButtonClickedf
+        // 이미지 불러오지 않았을 때 필터버튼 클릭 시 예외를 잡아주기 위해서
+        try {
+            applyFilter(id);
+        } catch(Exception e) {
+
+        }
+
+    }//end onButtonClicked
+
+    private void applyFilter(int id) {
+            ImageFilters imageFilters = new ImageFilters();
+            switch(id) {
+                case R.id.filter_black:
+                    cameraIMG.setImageBitmap(imageFilters.applyBlackFilter(bit));
+                    break;
+                case R.id.filter_sunset:
+                    cameraIMG.setImageBitmap(imageFilters.applyBoostEffect(bit, 1, 40));
+                    break;
+                case R.id.filter_forest:
+                    cameraIMG.setImageBitmap(imageFilters.applyBoostEffect(bit, 2, 30));
+                    break;
+                case R.id.filter_sea:
+                    cameraIMG.setImageBitmap(imageFilters.applyBoostEffect(bit, 3, 67));
+                    break;
+                case R.id.filter_bright:
+                    cameraIMG.setImageBitmap(imageFilters.applyBrightnessEffect(bit, 80));
+                    break;
+                case R.id.filter_neon:
+                    cameraIMG.setImageBitmap(imageFilters.applyColorFilterEffect(bit, 255, 0, 0));
+                    break;
+                case R.id.filter_neon2:
+                    cameraIMG.setImageBitmap(imageFilters.applyColorFilterEffect(bit, 0, 255, 0));
+                    break;
+                case R.id.filter_neon3:
+                    cameraIMG.setImageBitmap(imageFilters.applyColorFilterEffect(bit, 0, 0, 255));
+                    break;
+                case R.id.filter_paint:
+                    cameraIMG.setImageBitmap(imageFilters.applyDecreaseColorDepthEffect(bit, 64));
+                    break;
+                case R.id.filter_paint2:
+                    cameraIMG.setImageBitmap(imageFilters.applyDecreaseColorDepthEffect(bit, 32));
+                    break;
+                case R.id.filter_sketch:
+                    cameraIMG.setImageBitmap(imageFilters.applyContrastEffect(bit, 70));
+                    break;
+                case R.id.filter_sketch2:
+                    cameraIMG.setImageBitmap(imageFilters.applyEmbossEffect(bit));
+                    break;
+                case R.id.filter_sketch3:
+                    cameraIMG.setImageBitmap(imageFilters.applyEngraveEffect(bit));
+                    break;
+                case R.id.filter_mosaic:
+                    cameraIMG.setImageBitmap(imageFilters.applyFleaEffect(bit));
+                    break;
+                case R.id.filter_blur:
+                    cameraIMG.setImageBitmap(imageFilters.applyGaussianBlurEffect(bit));
+                    break;
+                case R.id.filter_more_bright:
+                    cameraIMG.setImageBitmap(imageFilters.applyGammaEffect(bit, 1.8, 1.8, 1.8));
+                    break;
+                case R.id.filter_black2:
+                    cameraIMG.setImageBitmap(imageFilters.applyGreyscaleEffect(bit));
+                    break;
+                case R.id.filter_border:
+                    cameraIMG.setImageBitmap(imageFilters.applyMeanRemovalEffect(bit));
+                    break;
+                case R.id.filter_romo:
+                    cameraIMG.setImageBitmap(imageFilters.applyRoundCornerEffect(bit, 45));
+                    break;
+                case R.id.filter_white:
+                    cameraIMG.setImageBitmap(imageFilters.applySaturationFilter(bit, 1));
+                    break;
+                case R.id.filter_black3:
+                    cameraIMG.setImageBitmap(imageFilters.applySepiaToningEffect(bit, 10, 1.5, 0.6, 0.12));
+                    break;
+                case R.id.filter_black4:
+                    cameraIMG.setImageBitmap(imageFilters.applySepiaToningEffect(bit, 10, 0.88, 2.45, 1.43));
+                    break;
+                case R.id.filter_black5:
+                    cameraIMG.setImageBitmap(imageFilters.applySepiaToningEffect(bit, 10, 1.2, 0.87, 2.1));
+                    break;
+                case R.id.filter_natural:
+                    cameraIMG.setImageBitmap(imageFilters.applySmoothEffect(bit, 100));
+                    break;
+                case R.id.filter_blue:
+                    cameraIMG.setImageBitmap(imageFilters.applyShadingFilter(bit, Color.CYAN));
+                    break;
+                case R.id.filter_yellow:
+                    cameraIMG.setImageBitmap(imageFilters.applyShadingFilter(bit, Color.YELLOW));
+                    break;
+                case R.id.filter_green:
+                    cameraIMG.setImageBitmap(imageFilters.applyShadingFilter(bit, Color.GREEN));
+                    break;
+                case R.id.filter_rainbow:
+                    cameraIMG.setImageBitmap(imageFilters.applyTintEffect(bit, 100));
+                    break;
+
+            } // end switch()
+        } // end applyFilter()
+
 
 
     // 이벤트핸들러
