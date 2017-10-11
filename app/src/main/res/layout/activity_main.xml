@@ -266,9 +266,10 @@
         android:layout_height="80dp"
         app:srcCompat="@drawable/if_141_111070"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/saveimgBtn"
-        android:layout_marginLeft="55dp"
-        android:layout_marginStart="55dp" />
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginRight="5dp"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <ImageView
         android:id="@+id/menuBarOpener"
