@@ -199,7 +199,15 @@ public class MainActivity extends AppCompatActivity
                 floatingBtnFilter.getVisibility() == View.VISIBLE &&
                 floatingBtnText.getVisibility() == View.VISIBLE) {
             floatingBtnGone();
-        } else {
+        } else if( galleryimgBtn.getVisibility() == View.VISIBLE &&
+            cameraimgBtn.getVisibility() == View.VISIBLE &&
+            backgroundimg.getVisibility() == View.VISIBLE &&
+            menubarCloser.getVisibility() == View.VISIBLE &&
+            saveimgBtn.getVisibility() == View.VISIBLE &&
+            menubarOpener.getVisibility() == View.INVISIBLE) {
+            menuClose(backgroundimg);
+        }
+        else {
             super.onBackPressed();
         }
     }
