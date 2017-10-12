@@ -409,8 +409,8 @@ public class MainActivity extends AppCompatActivity
     }//end screenCapture
 
     public void textBtnClick(View view) {
-        Intent textIntent = new Intent(this, TextsActivity.class);
-        startActivity(textIntent);
+        TextsActivity dialog = new TextsActivity(this);
+        dialog.show();
         floatingBtnGone();
     }//end textBtnClick
 
