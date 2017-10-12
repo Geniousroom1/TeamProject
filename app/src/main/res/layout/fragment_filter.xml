@@ -32,6 +32,42 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
+                <Button
+                    android:id="@+id/filter_blue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:text="블루"
+                    android:textColor="#ffffff" />
+
+                <Button
+                    android:id="@+id/filter_yellow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:text="옐로우"
+                    android:textColor="#ffffff" />
+
+                <Button
+                    android:id="@+id/filter_green"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:text="그린"
+                    android:textColor="#ffffff" />
+
+                <Button
+                    android:id="@+id/filter_rainbow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:text="무지개"
+                    android:textColor="#ffffff" />
+
 
                 <Button
                     android:id="@+id/filter_sunset"
@@ -43,15 +79,6 @@
                     android:text="석양" />
 
                 <Button
-                    android:id="@+id/filter_forest"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/colorDeepDarkBlack"
-                    android:textColor="#ffffff"
-                    android:text="숲" />
-
-                <Button
                     android:id="@+id/filter_sea"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -61,22 +88,24 @@
                     android:text="바다" />
 
                 <Button
+                    android:id="@+id/filter_more_bright"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:text="밝게"
+                    android:textColor="#ffffff" />
+
+                <Button
                     android:id="@+id/filter_bright"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:backgroundTint="@color/colorDeepDarkBlack"
                     android:textColor="#ffffff"
-                    android:text="밝게" />
+                    android:text="더 밝게" />
 
-                <Button
-                    android:id="@+id/filter_more_bright"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/colorDeepDarkBlack"
-                    android:text="더 밝게"
-                    android:textColor="#ffffff" />
+
 
                 <Button
                     android:id="@+id/filter_neon"
@@ -248,41 +277,7 @@
                     android:text="네츄럴"
                     android:textColor="#ffffff" />
 
-                <Button
-                    android:id="@+id/filter_blue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/colorDeepDarkBlack"
-                    android:text="블루"
-                    android:textColor="#ffffff" />
 
-                <Button
-                    android:id="@+id/filter_yellow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/colorDeepDarkBlack"
-                    android:text="옐로우"
-                    android:textColor="#ffffff" />
-
-                <Button
-                    android:id="@+id/filter_green"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/colorDeepDarkBlack"
-                    android:text="그린"
-                    android:textColor="#ffffff" />
-
-                <Button
-                    android:id="@+id/filter_rainbow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/colorDeepDarkBlack"
-                    android:text="무지개"
-                    android:textColor="#ffffff" />
 
             </LinearLayout>
         </LinearLayout>

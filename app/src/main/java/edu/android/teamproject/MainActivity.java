@@ -250,9 +250,6 @@ public class MainActivity extends AppCompatActivity
                 case R.id.filter_sunset:
                     cameraIMG.setImageBitmap(imageFilters.applyBoostEffect(bit, 1, 40));
                     break;
-                case R.id.filter_forest:
-                    cameraIMG.setImageBitmap(imageFilters.applyBoostEffect(bit, 2, 30));
-                    break;
                 case R.id.filter_sea:
                     cameraIMG.setImageBitmap(imageFilters.applyBoostEffect(bit, 3, 67));
                     break;
@@ -653,6 +650,7 @@ public class MainActivity extends AppCompatActivity
     }//end createImageFile
 
     public void startGallery(View view) {
+        clearAnimations();
         int check = ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
 
         if (check == PackageManager.PERMISSION_GRANTED) {
