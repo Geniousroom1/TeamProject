@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity
     private FrameLayout mainLayout;
     private FragmentManager fm;
     private Fragment fragment;
+    private ConstraintLayout constraintLayout;
     public static FrameLayout inflatedLayout;
     public ImageView cameraIMG;
     private ArrayList<StickerImageView> imgList;
@@ -76,6 +78,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main);
+        constraintLayout = (ConstraintLayout) findViewById(R.id.mainxml);
         galleryimgBtn = (ImageView) findViewById(R.id.galleryimgBtn);
         cameraimgBtn = (ImageView) findViewById(R.id.cameraimgBtn);
         backgroundimg = (ImageView) findViewById(R.id.backgroundImg);
@@ -94,7 +97,6 @@ public class MainActivity extends AppCompatActivity
         cameraIMG = (ImageView) findViewById(R.id.cameraView);
         imgList = new ArrayList<StickerImageView>();
         textList = new ArrayList<StickerTextView>();
-        cameraIMG.setImageBitmap(bit);
         // 플로팅 버튼 찾음
         floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         floatingBtnEmoticon = (FloatingActionButton) findViewById(R.id.floatingBtnEmoticon);
@@ -479,6 +481,15 @@ public class MainActivity extends AppCompatActivity
                 Log.i("edu.android", "exifDegree" + exifDegree);
                 bit = rotate(bit, exifDegree);
                 cameraIMG.setImageBitmap(bit);
+
+                constraintLayout.setBackgroundColor(Color.BLACK);
+
+                galleryimgBtn.setVisibility(View.INVISIBLE);
+                cameraimgBtn.setVisibility(View.INVISIBLE);
+                backgroundimg.setVisibility(View.INVISIBLE);
+                menubarCloser.setVisibility(View.INVISIBLE);
+                saveimgBtn.setVisibility(View.INVISIBLE);
+                menubarOpener.setVisibility(View.VISIBLE);
 //                Intent nextI = new Intent(this, MainActivity.class);
 //                startActivity(nextI);
             } catch (Exception e) {
@@ -497,6 +508,15 @@ public class MainActivity extends AppCompatActivity
                 try {
                     bit = MediaStore.Images.Media.getBitmap(getContentResolver(),uri);
                     cameraIMG.setImageBitmap(bit);
+
+                    constraintLayout.setBackgroundColor(Color.BLACK);
+
+                    galleryimgBtn.setVisibility(View.INVISIBLE);
+                    cameraimgBtn.setVisibility(View.INVISIBLE);
+                    backgroundimg.setVisibility(View.INVISIBLE);
+                    menubarCloser.setVisibility(View.INVISIBLE);
+                    saveimgBtn.setVisibility(View.INVISIBLE);
+                    menubarOpener.setVisibility(View.VISIBLE);
 //                    Intent nextI = new Intent(this, MainActivity.class);
 //                    startActivity(nextI);
                 } catch (Exception e) {
