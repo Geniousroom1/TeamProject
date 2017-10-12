@@ -1,6 +1,7 @@
 package edu.android.teamproject;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -20,6 +21,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -200,10 +202,28 @@ public class MainActivity extends AppCompatActivity
             saveimgBtn.getVisibility() == View.VISIBLE &&
             menubarOpener.getVisibility() == View.INVISIBLE) {
             menuClose(backgroundimg);
+        } else {
+            clearAnimations();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("종료");
+            builder.setMessage("종료하시겠습니까?");
+            builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+            builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    finish();
+                }
+            });
+            AlertDialog dlg = builder.create();
+            dlg.show();
+
         }
-        else {
-            super.onBackPressed();
-        }
+
     }
 
     // 필터 콜백리스너 메소드
@@ -354,6 +374,7 @@ public class MainActivity extends AppCompatActivity
 
 
     public void screenCapture(View view) {
+        clearAnimations();
         mainLayout.buildDrawingCache();
         Bitmap capView = mainLayout.getDrawingCache();
         FileOutputStream fos = null;
@@ -384,7 +405,7 @@ public class MainActivity extends AppCompatActivity
             String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
             ActivityCompat.requestPermissions(this, permissions, WRITE_PERMISTION);
         }
-        floatingBtnGone();
+
     }//end screenCapture
 
     public void textBtnClick(View view) {
@@ -420,6 +441,14 @@ public class MainActivity extends AppCompatActivity
             }
     }
 
+    public void clearAnimations() {
+        floatingBtnEmoticon.clearAnimation();
+        floatingBtnFilter.clearAnimation();
+        floatingBtnText.clearAnimation();
+        floatingActionButton.clearAnimation();
+
+    }
+
     // 플로팅 버튼을 사라지게 하는 메소드
     public void floatingBtnGone() {
         // 나머지 플로팅 버튼 GONE으로 변경
@@ -434,6 +463,8 @@ public class MainActivity extends AppCompatActivity
         floatingBtnFilter.startAnimation(mHideResButton);
         floatingBtnText.startAnimation(mHideResButton);
         floatingActionButton.startAnimation(mHideButton);
+
+
     }
 
     // 플로팅 버튼을 보여주는 메소드
@@ -580,6 +611,7 @@ public class MainActivity extends AppCompatActivity
 
     // 카메라로 찍어서 값을 넘겨줌
     public void startCamera(View view) {
+        clearAnimations();
         int check = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
         int check2 = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
