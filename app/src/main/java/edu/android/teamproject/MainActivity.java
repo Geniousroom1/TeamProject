@@ -421,6 +421,7 @@ public class MainActivity extends AppCompatActivity
         TextsActivity dialog = new TextsActivity(this);
         dialog.show();
         floatingBtnGone();
+        clearAnimations();
     }//end textBtnClick
 
 
