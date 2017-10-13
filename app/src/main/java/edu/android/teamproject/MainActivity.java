@@ -3,7 +3,6 @@ package edu.android.teamproject;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -34,7 +33,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -432,6 +430,7 @@ public class MainActivity extends AppCompatActivity
         TextsActivity dialog = new TextsActivity(this);
         dialog.show();
         floatingBtnGone();
+        clearAnimations();
     }//end textBtnClick
 
 

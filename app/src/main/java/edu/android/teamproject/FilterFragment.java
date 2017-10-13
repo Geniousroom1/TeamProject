@@ -4,7 +4,6 @@ package edu.android.teamproject;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,7 @@ public class FilterFragment extends Fragment implements View.OnClickListener {
 
 
     private int[] buttonIds = {
-            R.id.filter_origin ,R.id.filter_sunset, R.id.filter_sea, R.id.filter_bright,
+            R.id.filter_origin , R.id.filter_sunset, R.id.filter_sea, R.id.filter_bright,
             R.id.filter_more_bright, R.id.filter_neon, R.id.filter_neon2, R.id.filter_neon3,
             R.id.filter_paint, R.id.filter_paint2, R.id.filter_black, R.id.filter_black2,
             R.id.filter_black3, R.id.filter_black4, R.id.filter_black5, R.id.filter_sketch,
