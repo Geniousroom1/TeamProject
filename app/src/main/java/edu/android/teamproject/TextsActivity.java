@@ -52,10 +52,14 @@ public class TextsActivity extends Dialog {
             public void onClick(View view) {
                 textCancel = false;
                 textActivity_Text = text.getText().toString();
-                MainActivity.textList.add(tv_sticker = new StickerTextView(getContext()));
-                tv_sticker.setText(TextsActivity.textActivity_Text);
-                MainActivity.inflatedLayout.addView(tv_sticker);
-                TextsActivity.this.dismiss();
+                if(text.getText().toString().length() != 0) {
+                    MainActivity.textList.add(tv_sticker = new StickerTextView(getContext()));
+                    tv_sticker.setText(TextsActivity.textActivity_Text);
+                    MainActivity.inflatedLayout.addView(tv_sticker);
+                    TextsActivity.this.dismiss();
+                }else{
+                    Toast.makeText(getContext(), "문자를 입력해주세요", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
