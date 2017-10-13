@@ -237,20 +237,23 @@ public class MainActivity extends AppCompatActivity
 //        FragmentManager fm = getSupportFragmentManager();
 //        FilterFragment fragment = (FilterFragment) fm.findFragmentById(R.id.container);
 //        fragment.getArguments();
-        this.id = id;
-        clearAnimations();
-        // 이미지 불러오지 않았을 때 필터버튼 클릭 시 예외를 잡아주기 위해서
-        AsyncTest asyncTest = new AsyncTest();
-        asyncTest.execute();
+
+        if (bit==null){
+            Toast.makeText(this, "이미지를 넣어주세요!", Toast.LENGTH_SHORT).show();
+        }else {
+            this.id = id;
+            clearAnimations();
+            // 이미지 불러오지 않았을 때 필터버튼 클릭 시 예외를 잡아주기 위해서
+            AsyncTest asyncTest = new AsyncTest();
+            asyncTest.execute();
 
 
+            try {
 
-        try {
+            } catch (Exception e) {
 
-        } catch (Exception e) {
-
+            }
         }
-
 
     }//end onButtonClicked
 
