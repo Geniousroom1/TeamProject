@@ -1,6 +1,8 @@
 package edu.android.teamproject;
 
 import android.Manifest;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -11,6 +13,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -40,8 +43,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity
-        implements EmoticonFragment.EmoticonListener, FilterFragment.FilterListener
-{   private static final int WRITE_PERMISTION = 19; // 인터페이스 구현
+        implements EmoticonFragment.EmoticonListener, FilterFragment.FilterListener {
+    private static final int WRITE_PERMISTION = 19; // 인터페이스 구현
     private FrameLayout frameLayout;
     private FrameLayout mainLayout;
     private FragmentManager fm;
@@ -52,7 +55,7 @@ public class MainActivity extends AppCompatActivity
     private ArrayList<StickerImageView> imgList;
     public static ArrayList<StickerTextView> textList;
     private FloatingActionButton floatingActionButton, floatingBtnEmoticon,
-                            floatingBtnFilter, floatingBtnText, floatingBtnCloseLayout;
+            floatingBtnFilter, floatingBtnText, floatingBtnCloseLayout;
     private Animation mShowButton;
     private Animation mHideButton;
     private Animation mShowResButton;
@@ -142,11 +145,11 @@ public class MainActivity extends AppCompatActivity
         int imgnum = EmoticonFragment.IMAGE_EMOTICONS[tab][posotion];
         StickerImageView iv_sticker;
         imgList.add(iv_sticker = new StickerImageView(MainActivity.this));
-        if(1< imgList.size()){
-            for (int i = 0; i < imgList.size() ; i++) {
+        if (1 < imgList.size()) {
+            for (int i = 0; i < imgList.size(); i++) {
                 imgList.get(i).setControlItemsHidden(true);
             }
-            imgList.get(imgList.size()-1).setControlItemsHidden(false);
+            imgList.get(imgList.size() - 1).setControlItemsHidden(false);
         }
         iv_sticker.setImageDrawable(getResources().getDrawable(imgnum));
         inflatedLayout.addView(iv_sticker);
@@ -191,16 +194,16 @@ public class MainActivity extends AppCompatActivity
             frameLayout.setVisibility(View.GONE);
             floatingBtnCloseLayout.setVisibility(View.GONE);
             floatingBtnCloseLayout.setClickable(false);
-        } else if(floatingBtnEmoticon.getVisibility() == View.VISIBLE &&
+        } else if (floatingBtnEmoticon.getVisibility() == View.VISIBLE &&
                 floatingBtnFilter.getVisibility() == View.VISIBLE &&
                 floatingBtnText.getVisibility() == View.VISIBLE) {
             floatingBtnGone();
-        } else if( galleryimgBtn.getVisibility() == View.VISIBLE &&
-            cameraimgBtn.getVisibility() == View.VISIBLE &&
-            backgroundimg.getVisibility() == View.VISIBLE &&
-            menubarCloser.getVisibility() == View.VISIBLE &&
-            saveimgBtn.getVisibility() == View.VISIBLE &&
-            menubarOpener.getVisibility() == View.INVISIBLE) {
+        } else if (galleryimgBtn.getVisibility() == View.VISIBLE &&
+                cameraimgBtn.getVisibility() == View.VISIBLE &&
+                backgroundimg.getVisibility() == View.VISIBLE &&
+                menubarCloser.getVisibility() == View.VISIBLE &&
+                saveimgBtn.getVisibility() == View.VISIBLE &&
+                menubarOpener.getVisibility() == View.INVISIBLE) {
             menuClose(backgroundimg);
         } else {
             clearAnimations();
@@ -232,103 +235,114 @@ public class MainActivity extends AppCompatActivity
         FragmentManager fm = getSupportFragmentManager();
         FilterFragment fragment = (FilterFragment) fm.findFragmentById(R.id.container);
         fragment.getArguments();
+        clearAnimations();
         // 이미지 불러오지 않았을 때 필터버튼 클릭 시 예외를 잡아주기 위해서
+        AsyncTest asyncTest = new AsyncTest();
+        asyncTest.execute();
         try {
             applyFilter(id);
-        } catch(Exception e) {
+        } catch (Exception e) {
 
         }
 
     }//end onButtonClicked
 
+//    private ProgressDialog showProgress() {
+//        ProgressDialog asyncDlg = ProgressDialog.show(MainActivity.this, "", "잠시만 기다려주세요", true);
+//        return asyncDlg;
+//
+//    }
+
     private void applyFilter(int id) {
-            ImageFilters imageFilters = new ImageFilters();
-            switch(id) {
-                case R.id.filter_black:
-                    cameraIMG.setImageBitmap(imageFilters.applyBlackFilter(bit));
-                    break;
-                case R.id.filter_sunset:
-                    cameraIMG.setImageBitmap(imageFilters.applyBoostEffect(bit, 1, 40));
-                    break;
-                case R.id.filter_sea:
-                    cameraIMG.setImageBitmap(imageFilters.applyBoostEffect(bit, 3, 67));
-                    break;
-                case R.id.filter_bright:
-                    cameraIMG.setImageBitmap(imageFilters.applyBrightnessEffect(bit, 80));
-                    break;
-                case R.id.filter_neon:
-                    cameraIMG.setImageBitmap(imageFilters.applyColorFilterEffect(bit, 255, 0, 0));
-                    break;
-                case R.id.filter_neon2:
-                    cameraIMG.setImageBitmap(imageFilters.applyColorFilterEffect(bit, 0, 255, 0));
-                    break;
-                case R.id.filter_neon3:
-                    cameraIMG.setImageBitmap(imageFilters.applyColorFilterEffect(bit, 0, 0, 255));
-                    break;
-                case R.id.filter_paint:
-                    cameraIMG.setImageBitmap(imageFilters.applyDecreaseColorDepthEffect(bit, 64));
-                    break;
-                case R.id.filter_paint2:
-                    cameraIMG.setImageBitmap(imageFilters.applyDecreaseColorDepthEffect(bit, 32));
-                    break;
-                case R.id.filter_sketch:
-                    cameraIMG.setImageBitmap(imageFilters.applyContrastEffect(bit, 70));
-                    break;
-                case R.id.filter_sketch2:
-                    cameraIMG.setImageBitmap(imageFilters.applyEmbossEffect(bit));
-                    break;
-                case R.id.filter_sketch3:
-                    cameraIMG.setImageBitmap(imageFilters.applyEngraveEffect(bit));
-                    break;
-                case R.id.filter_mosaic:
-                    cameraIMG.setImageBitmap(imageFilters.applyFleaEffect(bit));
-                    break;
-                case R.id.filter_blur:
-                    cameraIMG.setImageBitmap(imageFilters.applyGaussianBlurEffect(bit));
-                    break;
-                case R.id.filter_more_bright:
-                    cameraIMG.setImageBitmap(imageFilters.applyGammaEffect(bit, 1.8, 1.8, 1.8));
-                    break;
-                case R.id.filter_black2:
-                    cameraIMG.setImageBitmap(imageFilters.applyGreyscaleEffect(bit));
-                    break;
-                case R.id.filter_border:
-                    cameraIMG.setImageBitmap(imageFilters.applyMeanRemovalEffect(bit));
-                    break;
-                case R.id.filter_romo:
-                    cameraIMG.setImageBitmap(imageFilters.applyRoundCornerEffect(bit, 45));
-                    break;
-                case R.id.filter_white:
-                    cameraIMG.setImageBitmap(imageFilters.applySaturationFilter(bit, 1));
-                    break;
-                case R.id.filter_black3:
-                    cameraIMG.setImageBitmap(imageFilters.applySepiaToningEffect(bit, 10, 1.5, 0.6, 0.12));
-                    break;
-                case R.id.filter_black4:
-                    cameraIMG.setImageBitmap(imageFilters.applySepiaToningEffect(bit, 10, 0.88, 2.45, 1.43));
-                    break;
-                case R.id.filter_black5:
-                    cameraIMG.setImageBitmap(imageFilters.applySepiaToningEffect(bit, 10, 1.2, 0.87, 2.1));
-                    break;
-                case R.id.filter_natural:
-                    cameraIMG.setImageBitmap(imageFilters.applySmoothEffect(bit, 100));
-                    break;
-                case R.id.filter_blue:
-                    cameraIMG.setImageBitmap(imageFilters.applyShadingFilter(bit, Color.CYAN));
-                    break;
-                case R.id.filter_yellow:
-                    cameraIMG.setImageBitmap(imageFilters.applyShadingFilter(bit, Color.YELLOW));
-                    break;
-                case R.id.filter_green:
-                    cameraIMG.setImageBitmap(imageFilters.applyShadingFilter(bit, Color.GREEN));
-                    break;
-                case R.id.filter_rainbow:
-                    cameraIMG.setImageBitmap(imageFilters.applyTintEffect(bit, 100));
-                    break;
+        ImageFilters imageFilters = new ImageFilters();
+        switch (id) {
+            case R.id.filter_origin:
+                cameraIMG.setImageBitmap(bit);
+                break;
+            case R.id.filter_black:
+                cameraIMG.setImageBitmap(imageFilters.applyBlackFilter(bit));
+                break;
+            case R.id.filter_sunset:
+                cameraIMG.setImageBitmap(imageFilters.applyBoostEffect(bit, 1, 40));
+                break;
+            case R.id.filter_sea:
+                cameraIMG.setImageBitmap(imageFilters.applyBoostEffect(bit, 3, 67));
+                break;
+            case R.id.filter_bright:
+                cameraIMG.setImageBitmap(imageFilters.applyBrightnessEffect(bit, 80));
+                break;
+            case R.id.filter_neon:
+                cameraIMG.setImageBitmap(imageFilters.applyColorFilterEffect(bit, 255, 0, 0));
+                break;
+            case R.id.filter_neon2:
+                cameraIMG.setImageBitmap(imageFilters.applyColorFilterEffect(bit, 0, 255, 0));
+                break;
+            case R.id.filter_neon3:
+                cameraIMG.setImageBitmap(imageFilters.applyColorFilterEffect(bit, 0, 0, 255));
+                break;
+            case R.id.filter_paint:
+                cameraIMG.setImageBitmap(imageFilters.applyDecreaseColorDepthEffect(bit, 64));
+                break;
+            case R.id.filter_paint2:
+                cameraIMG.setImageBitmap(imageFilters.applyDecreaseColorDepthEffect(bit, 32));
+                break;
+            case R.id.filter_sketch:
+                cameraIMG.setImageBitmap(imageFilters.applyContrastEffect(bit, 70));
+                break;
+            case R.id.filter_sketch2:
+                cameraIMG.setImageBitmap(imageFilters.applyEmbossEffect(bit));
+                break;
+            case R.id.filter_sketch3:
+                cameraIMG.setImageBitmap(imageFilters.applyEngraveEffect(bit));
+                break;
+            case R.id.filter_mosaic:
+                cameraIMG.setImageBitmap(imageFilters.applyFleaEffect(bit));
+                break;
+            case R.id.filter_blur:
+                cameraIMG.setImageBitmap(imageFilters.applyGaussianBlurEffect(bit));
+                break;
+            case R.id.filter_more_bright:
+                cameraIMG.setImageBitmap(imageFilters.applyGammaEffect(bit, 1.8, 1.8, 1.8));
+                break;
+            case R.id.filter_black2:
+                cameraIMG.setImageBitmap(imageFilters.applyGreyscaleEffect(bit));
+                break;
+            case R.id.filter_border:
+                cameraIMG.setImageBitmap(imageFilters.applyMeanRemovalEffect(bit));
+                break;
+            case R.id.filter_romo:
+                cameraIMG.setImageBitmap(imageFilters.applyRoundCornerEffect(bit, 45));
+                break;
+            case R.id.filter_white:
+                cameraIMG.setImageBitmap(imageFilters.applySaturationFilter(bit, 1));
+                break;
+            case R.id.filter_black3:
+                cameraIMG.setImageBitmap(imageFilters.applySepiaToningEffect(bit, 10, 1.5, 0.6, 0.12));
+                break;
+            case R.id.filter_black4:
+                cameraIMG.setImageBitmap(imageFilters.applySepiaToningEffect(bit, 10, 0.88, 2.45, 1.43));
+                break;
+            case R.id.filter_black5:
+                cameraIMG.setImageBitmap(imageFilters.applySepiaToningEffect(bit, 10, 1.2, 0.87, 2.1));
+                break;
+            case R.id.filter_natural:
+                cameraIMG.setImageBitmap(imageFilters.applySmoothEffect(bit, 100));
+                break;
+            case R.id.filter_blue:
+                cameraIMG.setImageBitmap(imageFilters.applyShadingFilter(bit, Color.CYAN));
+                break;
+            case R.id.filter_yellow:
+                cameraIMG.setImageBitmap(imageFilters.applyShadingFilter(bit, Color.YELLOW));
+                break;
+            case R.id.filter_green:
+                cameraIMG.setImageBitmap(imageFilters.applyShadingFilter(bit, Color.GREEN));
+                break;
+            case R.id.filter_rainbow:
+                cameraIMG.setImageBitmap(imageFilters.applyTintEffect(bit, 100));
+                break;
 
-            } // end switch()
-        } // end applyFilter()
-
+        } // end switch()
+    } // end applyFilter()
 
 
     // 이벤트핸들러
@@ -344,7 +358,7 @@ public class MainActivity extends AppCompatActivity
             fragment = new FilterFragment();
             FragmentRepalce(fragment);
         }
-      //  frameLayout.removeAllViews(); // 프레임 레이아웃의 뷰를 모두 지움
+        //  frameLayout.removeAllViews(); // 프레임 레이아웃의 뷰를 모두 지움
         FragmentTransaction transaction = fm.beginTransaction();
         transaction.add(R.id.container, fragment);
         transaction.commit();
@@ -377,15 +391,15 @@ public class MainActivity extends AppCompatActivity
         FileOutputStream fos = null;
         String filename = "scr_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         int checkWrite = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if(checkWrite == PackageManager.PERMISSION_GRANTED){
+        if (checkWrite == PackageManager.PERMISSION_GRANTED) {
             try {
-                File file = new File(Environment.getExternalStorageDirectory().toString()+"/TeamProject");
+                File file = new File(Environment.getExternalStorageDirectory().toString() + "/TeamProject");
                 file.mkdir();
-                fos = new FileOutputStream(Environment.getExternalStorageDirectory().toString()+"/TeamProject/"+filename+".jpeg");
+                fos = new FileOutputStream(Environment.getExternalStorageDirectory().toString() + "/TeamProject/" + filename + ".jpeg");
                 capView.compress(Bitmap.CompressFormat.JPEG, 100, fos);
                 Toast.makeText(getApplicationContext(), "Captured!", Toast.LENGTH_LONG).show();
                 DMediaScanner scanner = new DMediaScanner(this);
-                scanner.startScan(Environment.getExternalStorageDirectory().toString()+"/TeamProject/"+filename+".jpeg");
+                scanner.startScan(Environment.getExternalStorageDirectory().toString() + "/TeamProject/" + filename + ".jpeg");
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 finish();
@@ -398,7 +412,7 @@ public class MainActivity extends AppCompatActivity
                     e.printStackTrace();
                 }
             }
-        }else {
+        } else {
             String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
             ActivityCompat.requestPermissions(this, permissions, WRITE_PERMISTION);
         }
@@ -414,28 +428,28 @@ public class MainActivity extends AppCompatActivity
 
     // 이미지뷰 공간에 버튼 클릭 시 테두리 사라지는 기능
     public void hidden(View view) {
-            for (int i = 0; i < imgList.size(); i++) {
-                StickerImageView siv = imgList.get(i);
-                siv.setControlItemsHidden(true);
-            }
+        for (int i = 0; i < imgList.size(); i++) {
+            StickerImageView siv = imgList.get(i);
+            siv.setControlItemsHidden(true);
+        }
 
-            for (int i = 0; i < textList.size(); i++) {
-                StickerTextView stv = textList.get(i);
-                stv.setControlItemsHidden(true);
-            }
+        for (int i = 0; i < textList.size(); i++) {
+            StickerTextView stv = textList.get(i);
+            stv.setControlItemsHidden(true);
+        }
 
     }
 
     public void nobhidden(View view) {
-            for (int i = 0; i < imgList.size(); i++) {
-                StickerImageView siv = imgList.get(i);
-                siv.setControlItemsHidden(false);
-            }
+        for (int i = 0; i < imgList.size(); i++) {
+            StickerImageView siv = imgList.get(i);
+            siv.setControlItemsHidden(false);
+        }
 
-            for (int i = 0; i < textList.size(); i++) {
-                StickerTextView stv = textList.get(i);
-                stv.setControlItemsHidden(false);
-            }
+        for (int i = 0; i < textList.size(); i++) {
+            StickerTextView stv = textList.get(i);
+            stv.setControlItemsHidden(false);
+        }
     }
 
     public void clearAnimations() {
@@ -494,7 +508,7 @@ public class MainActivity extends AppCompatActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode== REQ_CODE_CAMERA && resultCode == RESULT_OK) {
+        if (requestCode == REQ_CODE_CAMERA && resultCode == RESULT_OK) {
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inPreferredConfig = Bitmap.Config.RGB_565;
             try {
@@ -526,15 +540,15 @@ public class MainActivity extends AppCompatActivity
             }
 
 
-        }else{
+        } else {
 
         }//end Camera
 
-        if (requestCode== PICK_FROM_GALLERY && resultCode == RESULT_OK ) {
+        if (requestCode == PICK_FROM_GALLERY && resultCode == RESULT_OK) {
             Uri uri = data.getData();
-            if(uri!=null) {
+            if (uri != null) {
                 try {
-                    bit = MediaStore.Images.Media.getBitmap(getContentResolver(),uri);
+                    bit = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                     cameraIMG.setImageBitmap(bit);
 
                     constraintLayout.setBackgroundColor(Color.BLACK);
@@ -554,56 +568,43 @@ public class MainActivity extends AppCompatActivity
             } else {
                 Toast.makeText(this, "취소", Toast.LENGTH_SHORT).show();
             }
-        }else{
+        } else {
 
         }//end Gallery
 
     }//end onActivityResult
 
 
-    public static int exifOrientationToDegrees(int exifOrientation)
-    {
-        if(exifOrientation == ExifInterface.ORIENTATION_ROTATE_90)
-        {
+    public static int exifOrientationToDegrees(int exifOrientation) {
+        if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_90) {
             return 90;
-        }
-        else if(exifOrientation == ExifInterface.ORIENTATION_ROTATE_180)
-        {
+        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_180) {
             return 180;
-        }
-        else if(exifOrientation == ExifInterface.ORIENTATION_ROTATE_270)
-        {
+        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_270) {
             return 270;
         }
         return 0;
     }
 
-    public static Bitmap rotate(Bitmap bitmap, int degrees)
-    {
-        if(degrees != 0 && bitmap != null)
-        {
+    public static Bitmap rotate(Bitmap bitmap, int degrees) {
+        if (degrees != 0 && bitmap != null) {
             Matrix m = new Matrix();
             m.setRotate(degrees, (float) bitmap.getWidth() / 2,
                     (float) bitmap.getHeight() / 2);
 
-            try
-            {
+            try {
                 Bitmap converted = Bitmap.createBitmap(bitmap, 0, 0,
                         bitmap.getWidth(), bitmap.getHeight(), m, true);
-                if(bitmap != converted)
-                {
+                if (bitmap != converted) {
                     bitmap.recycle();
                     bitmap = converted;
                 }
-            }
-            catch(OutOfMemoryError ex)
-            {
+            } catch (OutOfMemoryError ex) {
                 // 메모리가 부족하여 회전을 시키지 못할 경우 그냥 원본을 반환합니다.
             }
         }
         return bitmap;
     }
-
 
 
     // 카메라로 찍어서 값을 넘겨줌
@@ -612,11 +613,11 @@ public class MainActivity extends AppCompatActivity
         int check = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
         int check2 = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
-        if(check == PackageManager.PERMISSION_GRANTED&& check2== PackageManager.PERMISSION_GRANTED){
+        if (check == PackageManager.PERMISSION_GRANTED && check2 == PackageManager.PERMISSION_GRANTED) {
             try {
                 File photoFile = null;
                 photoFile = createImageFile();
-                imageUri = FileProvider.getUriForFile(this,"edu.android.teamproject",photoFile);
+                imageUri = FileProvider.getUriForFile(this, "edu.android.teamproject", photoFile);
                 Intent intent = new Intent();
                 intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
@@ -625,7 +626,7 @@ public class MainActivity extends AppCompatActivity
                 e.printStackTrace();
             }
 
-        }else {
+        } else {
             String[] permissions = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
             ActivityCompat.requestPermissions(this, permissions, PERMISTION_CAMERA);
             ActivityCompat.requestPermissions(this, permissions, PERMISTION_WRITE);
@@ -680,4 +681,39 @@ public class MainActivity extends AppCompatActivity
         saveimgBtn.setVisibility(View.VISIBLE);
         menubarOpener.setVisibility(View.INVISIBLE);
     }
+
+    class AsyncTest extends AsyncTask<Void, Void, Void> {
+        private ImageFilters imageFilters = new ImageFilters();
+        private ProgressDialog dlg;
+
+        @Override
+        protected void onPreExecute() {
+            dlg = new ProgressDialog(MainActivity.this);
+            dlg.setMessage("잠시만 기다려주세요..");
+            dlg.show();
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+
+                    Thread.sleep(500);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            dlg.dismiss();
+            super.onPostExecute(aVoid);
+        }
+    } // end asyncTest
+
+
 }
+
+

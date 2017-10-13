@@ -33,6 +33,15 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <Button
+                    android:id="@+id/filter_origin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:text="없음"
+                    android:textColor="#ffffff" />
+
+                <Button
                     android:id="@+id/filter_blue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -68,6 +77,23 @@
                     android:text="무지개"
                     android:textColor="#ffffff" />
 
+                <Button
+                    android:id="@+id/filter_mosaic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:text="모자이크"
+                    android:textColor="#ffffff" />
+
+                <Button
+                    android:id="@+id/filter_romo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorDeepDarkBlack"
+                    android:text="로모"
+                    android:textColor="#ffffff" />
 
                 <Button
                     android:id="@+id/filter_sunset"
@@ -223,14 +249,6 @@
                     android:text="스케치3"
                     android:textColor="#ffffff" />
 
-                <Button
-                    android:id="@+id/filter_mosaic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/colorDeepDarkBlack"
-                    android:text="모자이크"
-                    android:textColor="#ffffff" />
 
                 <Button
                     android:id="@+id/filter_blur"
@@ -248,15 +266,6 @@
                     android:layout_weight="1"
                     android:backgroundTint="@color/colorDeepDarkBlack"
                     android:text="테두리"
-                    android:textColor="#ffffff" />
-
-                <Button
-                    android:id="@+id/filter_romo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/colorDeepDarkBlack"
-                    android:text="로모"
                     android:textColor="#ffffff" />
 
                 <Button
