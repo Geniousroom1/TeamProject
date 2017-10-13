@@ -21,6 +21,7 @@ public class TextsActivity extends Dialog {
     public static StickerTextView tv_sticker;
     public static Typeface font1;
     public static int color1;
+    private Typeface btnFont;
     private Button ok,cancel,font,col;
 
     public TextsActivity(@NonNull Context context) {
@@ -40,6 +41,11 @@ public class TextsActivity extends Dialog {
         font1 = Typeface.createFromAsset(getContext().getAssets(),"손글씨펜.ttf");
         text.setTypeface(font1);
         text.setTextColor(color1);
+        btnFont = Typeface.createFromAsset(getContext().getAssets(),"손글씨펜.ttf");
+        ok.setTypeface(btnFont);
+        cancel.setTypeface(btnFont);
+        font.setTypeface(btnFont);
+        col.setTypeface(btnFont);
 
         ok.setOnClickListener(new View.OnClickListener() {
             @Override

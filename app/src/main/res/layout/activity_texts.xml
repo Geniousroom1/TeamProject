@@ -10,11 +10,11 @@
     android:orientation="vertical">
     <EditText
         android:id="@+id/editText"
-        android:layout_width="368dp"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="텍스트를 입력 해 주세요."
+        android:hint="글자를 입력해주세요!"
         app:layout_constraintVertical_bias="0.015" />
 
     <LinearLayout
@@ -24,30 +24,42 @@
 
         <Button
             android:id="@+id/colorbtn"
-            android:layout_width="85dp"
-            android:layout_height="50dp"
-            android:text="색깔" />
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:text="색깔"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            />
 
         <Button
             android:id="@+id/fontbtn"
-            android:layout_width="85dp"
-            android:layout_height="50dp"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="폰트" />
+            android:text="폰트"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            />
 
         <Button
             android:id="@+id/enterbtn"
-            android:layout_width="85dp"
-            android:layout_height="50dp"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="입력" />
+            android:text="입력"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            />
 
         <Button
             android:id="@+id/cancelbtn"
-            android:layout_width="85dp"
-            android:layout_height="50dp"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="취소" />
+            android:text="취소"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            />
     </LinearLayout>
 
 </LinearLayout>
