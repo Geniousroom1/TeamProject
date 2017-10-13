@@ -13,16 +13,25 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.util.Random;
 
 
 public class ImageFilters {
 
 
+
+
+
     public Bitmap applyHighlightEffect(Bitmap src) {
 
         // create new bitmap, which will be painted and becomes result image
-        Bitmap bmOut = Bitmap.createBitmap(src.getWidth() + 96, src.getHeight() + 96, Bitmap.Config.ARGB_8888);
+        final Bitmap bmOut = Bitmap.createBitmap(src.getWidth() + 96, src.getHeight() + 96, Bitmap.Config.ARGB_8888);
         // setup canvas for painting
         Canvas canvas = new Canvas(bmOut);
         // setup default color
@@ -46,6 +55,7 @@ public class ImageFilters {
         canvas.drawBitmap(src, 0, 0, null);
 
         // return out final image
+
         return bmOut;
     }
 
@@ -430,6 +440,7 @@ public class ImageFilters {
         convMatrix.Matrix[1][1] = 2;
         convMatrix.Factor = 1;
         convMatrix.Offset = 95;
+
         return ConvolutionMatrix.computeConvolution3x3(src, convMatrix);
     }
 

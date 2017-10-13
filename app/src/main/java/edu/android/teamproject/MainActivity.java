@@ -1,6 +1,7 @@
 package edu.android.teamproject;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,6 +18,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.UiThread;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -59,6 +61,7 @@ public class MainActivity extends AppCompatActivity
     private Animation mShowButton;
     private Animation mHideButton;
     private Animation mShowResButton;
+    public int id;
     private Animation mHideResButton;
 
 
@@ -77,6 +80,7 @@ public class MainActivity extends AppCompatActivity
     private String fileName = "Image"; // 파일명
 
     private ImageView galleryimgBtn, cameraimgBtn, backgroundimg, menubarOpener, menubarCloser, saveimgBtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -232,18 +236,23 @@ public class MainActivity extends AppCompatActivity
     // 필터 콜백리스너 메소드
     @Override
     public void onButtonClicked(int id) {
-        FragmentManager fm = getSupportFragmentManager();
-        FilterFragment fragment = (FilterFragment) fm.findFragmentById(R.id.container);
-        fragment.getArguments();
+//        FragmentManager fm = getSupportFragmentManager();
+//        FilterFragment fragment = (FilterFragment) fm.findFragmentById(R.id.container);
+//        fragment.getArguments();
+        this.id = id;
         clearAnimations();
         // 이미지 불러오지 않았을 때 필터버튼 클릭 시 예외를 잡아주기 위해서
         AsyncTest asyncTest = new AsyncTest();
         asyncTest.execute();
+
+
+
         try {
-            applyFilter(id);
+
         } catch (Exception e) {
 
         }
+
 
     }//end onButtonClicked
 
@@ -682,12 +691,14 @@ public class MainActivity extends AppCompatActivity
         menubarOpener.setVisibility(View.INVISIBLE);
     }
 
+
+
     class AsyncTest extends AsyncTask<Void, Void, Void> {
-        private ImageFilters imageFilters = new ImageFilters();
         private ProgressDialog dlg;
 
         @Override
         protected void onPreExecute() {
+            Log.i("edu.android", "onPreExecute()");
             dlg = new ProgressDialog(MainActivity.this);
             dlg.setMessage("잠시만 기다려주세요..");
             dlg.show();
@@ -696,9 +707,10 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         protected Void doInBackground(Void... voids) {
+            Log.i("edu.android", "doInBack()");
             try {
 
-                    Thread.sleep(500);
+                Thread.sleep(500);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -708,6 +720,8 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         protected void onPostExecute(Void aVoid) {
+            Log.i("edu.android", "onPostExecute()");
+            applyFilter(id);
             dlg.dismiss();
             super.onPostExecute(aVoid);
         }
